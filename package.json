@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "2": "^3.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.4.5",
@@ -17,6 +18,7 @@
     "layout": "^2.2.0",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.2",
     "sequelize": "^6.37.1"
   },
   "devDependencies": {
