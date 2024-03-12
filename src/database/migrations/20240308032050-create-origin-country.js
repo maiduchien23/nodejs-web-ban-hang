@@ -11,11 +11,11 @@ module.exports = {
       country_name: {
         type: Sequelize.STRING(100),
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },

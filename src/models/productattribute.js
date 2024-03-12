@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       attribute_type: DataTypes.STRING(100),
       attribute_color: DataTypes.STRING(4),
       status: DataTypes.STRING(200),
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

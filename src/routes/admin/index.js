@@ -1,10 +1,8 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const dashboardController = require("../../http/controller/admin/dashboard.Controller");
+const authMiddleware = require("../../http/middlewares/auth.Middleware");
 
-/* GET users listing. */
-
-router.get("/", function (req, res, next) {
-  res.send("admin");
-});
+router.get("/", authMiddleware, dashboardController.index);
 
 module.exports = router;

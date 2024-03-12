@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       combo_name: DataTypes.STRING(200),
       price: DataTypes.DECIMAL,
       description: DataTypes.TEXT,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

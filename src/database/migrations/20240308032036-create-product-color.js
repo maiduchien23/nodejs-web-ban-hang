@@ -11,11 +11,11 @@ module.exports = {
       color_name: {
         type: Sequelize.STRING(50),
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },

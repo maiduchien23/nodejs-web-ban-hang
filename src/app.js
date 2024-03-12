@@ -1,16 +1,23 @@
 require("dotenv").config();
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var expressLayouts = require("express-ejs-layouts");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const expressLayouts = require("express-ejs-layouts");
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
+const bodyParser = require("body-parser");
 
-const adminRouter = require("./routes/admin/index");
 const productRouter = require("./routes/products/index");
-var app = express();
+const adminRouter = require("./routes/admin/index");
+const authRouter = require("./routes/auth/index");
+const localPassport = require("./passport/auth/localPassport");
+const authMiddleware = require("./http/middlewares/auth.Middleware");
+const app = express();
+const model = require("./models/index");
 
-// view engine setup
+// View engine setup
 app.set("views", path.join(__dirname, "resources/views"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
@@ -22,15 +29,49 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.use("/admin", adminRouter);
-app.use("/product", productRouter);
+// Session middleware
+app.use(
+  session({
+    secret: "123456",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+// Flash middleware
+app.use(flash());
+
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function (user, done) {
+  done(null, user.user_id);
 });
 
-// error handler
+passport.deserializeUser(async function (user_id, done) {
+  const user = await model.User.findByPk(user_id);
+  done(null, user);
+});
+
+passport.use("local", localPassport);
+
+// Routes
+app.use("/", productRouter);
+app.use("/auth", authRouter);
+app.use("/admin", authMiddleware, adminRouter);
+//app.use("/product", productRouter);
+
+// Error handling
+app.use(function (req, res, next) {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
+
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;

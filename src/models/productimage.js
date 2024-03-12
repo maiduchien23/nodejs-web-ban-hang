@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       product_id: DataTypes.INTEGER,
       image_url: DataTypes.STRING(255),
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

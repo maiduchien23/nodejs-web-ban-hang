@@ -14,22 +14,22 @@ module.exports = {
       priority: {
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      createdBy: {
+      created_by: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
           key: "user_id",
         },
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedBy: {
+      updated_by: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",

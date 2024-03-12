@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      username: DataTypes.STRING(50),
+      name: DataTypes.STRING(50),
       password: DataTypes.STRING(100),
       email: {
         type: DataTypes.STRING(200),
@@ -28,12 +28,18 @@ module.exports = (sequelize, DataTypes) => {
       },
       address: DataTypes.STRING(200),
       phone_number: DataTypes.STRING,
-      firstLogin: {
+      first_login: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
     {
       sequelize,

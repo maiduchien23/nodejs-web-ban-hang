@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       color_name: DataTypes.STRING(50),
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

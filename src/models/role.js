@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       role_name: DataTypes.STRING,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

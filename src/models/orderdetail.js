@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       product_id: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
       price_per_unit: DataTypes.DECIMAL,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

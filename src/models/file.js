@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       file_url: DataTypes.STRING(255),
       size: DataTypes.INTEGER,
       extension: DataTypes.STRING(10),
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

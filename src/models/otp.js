@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       expiry_time: DataTypes.DATE,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

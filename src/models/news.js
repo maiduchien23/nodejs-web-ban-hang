@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       meta_title: DataTypes.STRING(255),
       meta_description: DataTypes.TEXT,
       meta_keywords: DataTypes.TEXT,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

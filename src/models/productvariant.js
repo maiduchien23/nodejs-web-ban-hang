@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       discount_price: DataTypes.DECIMAL,
       price: DataTypes.DECIMAL,
       quantity_available: DataTypes.INTEGER,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
     },
     {
       sequelize,

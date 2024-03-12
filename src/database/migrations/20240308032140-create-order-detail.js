@@ -30,11 +30,11 @@ module.exports = {
       price_per_unit: {
         type: Sequelize.DECIMAL,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },

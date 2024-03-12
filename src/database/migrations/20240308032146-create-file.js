@@ -20,11 +20,11 @@ module.exports = {
       extension: {
         type: Sequelize.STRING(10),
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },

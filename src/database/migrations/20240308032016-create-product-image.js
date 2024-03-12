@@ -19,11 +19,11 @@ module.exports = {
       image_url: {
         type: Sequelize.STRING(255),
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },

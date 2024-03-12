@@ -60,11 +60,11 @@ module.exports = {
       meta_keywords: {
         type: Sequelize.TEXT,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      createdBy: {
+      created_by: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
@@ -72,11 +72,11 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedBy: {
+      updated_by: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
