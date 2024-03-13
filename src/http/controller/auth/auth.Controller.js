@@ -3,6 +3,7 @@ const passport = require("passport");
 const model = require("../../../models/index");
 const User = model.User;
 
+const JWT_SECRET = process.env.JWT_SECRET;
 module.exports = {
   login: (req, res) => {
     res.render("auth/login", {
@@ -37,7 +38,6 @@ module.exports = {
 
   handleRegister: async (req, res) => {
     const { name, password, email, address, phone_number } = req.body;
-
     try {
       const saltRounds = 10;
       const hash = await bcrypt.hash(password, saltRounds);
@@ -57,12 +57,12 @@ module.exports = {
         req.flash("msg", "Đăng ký tài khoản thành công");
         res.redirect("/auth/login");
       } else {
-        req.flash("msg", "Vui lòng kiểm tra lại thông tin");
+        req.flash("error_msg", "Vui lòng kiểm tra lại thông tin");
         res.redirect("/auth/register");
       }
     } catch (error) {
       console.error("Registration error:", error);
-      req.flash("msg", "Lỗi xảy ra trong quá trình đăng ký");
+      req.flash("error_msg", "Lỗi xảy ra trong quá trình đăng ký");
       res.redirect("/auth/register");
     }
   },

@@ -10,6 +10,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 
 const productRouter = require("./routes/products/index");
+const uploadRouter = require("./routes/uploads/index");
 const adminRouter = require("./routes/admin/index");
 const authRouter = require("./routes/auth/index");
 const localPassport = require("./passport/auth/localPassport");
@@ -60,11 +61,12 @@ passport.deserializeUser(async function (user_id, done) {
 passport.use("local", localPassport);
 
 // Routes
+app.use("/", uploadRouter);
 app.use("/", productRouter);
 app.use("/auth", authRouter);
 app.use("/admin", authMiddleware, adminRouter);
-//app.use("/product", productRouter);
-
+app.use("/upload", uploadRouter);
+app.use("/products", productRouter);
 // Error handling
 app.use(function (req, res, next) {
   const err = new Error("Not Found");
