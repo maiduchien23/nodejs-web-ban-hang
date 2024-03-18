@@ -1,0 +1,119 @@
+<div class="card-body">
+  <div class="d-flex justify-content-end gap-2 container-fluid">
+    <div class="d-flex mr-2">
+      <a href="/admin/users/import" class="btn btn-warning mr-2">
+        <i class="fas fa-file-import mr-1"></i>
+        Import File</a
+      >
+      <form action="/admin/users/export" method="post">
+        <button type="submit" class="btn btn-success mr">
+          <i class="fas fa-file-export mr-1"></i>
+          Export File
+        </button>
+      </form>
+    </div>
+
+      <div>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-toggle="modal"
+          data-target="#modal-danger"
+        >
+          <i class="fas fa-trash mr-1"></i>
+          Xóa tất cả
+        </button>
+        <div class="modal fade" id="modal-danger">
+          <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+              <div class="modal-header">
+                <h4 class="modal-title">Xóa nhiều người dùng</h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Bạn có chắc xóa tất cả các người dùng này?</p>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-outline-light"
+                  data-dismiss="modal"
+                >
+                  Không
+                </button>
+                <form action="/admin/users/deleteAll" method="POST">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <input
+                    type="hidden"
+                    id="listDelete"
+                    name="listUserDelete"
+                    value=""
+                  />
+                  <button
+                    type="submit"
+                    class="btn btn-outline-light"
+                    id="deleteAll"
+                  >
+                    Có
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="justify-content-between content mb-3">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="d-flex align-items-center col-md-8 offset-md-2 ml-0 p-0">
+            <form action="">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control form-control-md"
+                  name="keyword"
+                  placeholder="Nhập từ tìm kiếm"
+                />
+                <div class="input-group-append" width="38px" height="38px">
+                  <button type="submit" class="btn btn-md btn-default">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="dropdown ml-2">
+              <button class="btn btn-default" data-toggle="dropdown">
+                <i class="fa fa-filter"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="checkboxAll" /></th>
+          <th style="width: 10px">#</th>
+          <th>Tên</th>
+          <th>Email</th>
+          <th>SĐT</th>
+          <th>Địa chỉ</th>
+          <th>Ngày tạo</th>
+          <th>Phân quyền</th>
+
+          <th colspan="2">Chức năng</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

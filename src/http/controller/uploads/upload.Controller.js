@@ -1,50 +1,47 @@
 const db = require("../../../models/index");
 const File = db.File;
+const multipleUploadMiddleware = require("../../../http/middlewares/multipleUpload.Middleware");
+
+let debug = console.log.bind(console);
 
 module.exports = {
   getUploadFilePage: async (req, res) => {
-    res.render("uploads/home/index");
+    res.render("uploads/home/uploadFile");
   },
-  handleUploadFile: async (req, res) => {
+
+  handMultipleUpload: async (req, res) => {
     try {
-      if (!req.file) {
-        return res.status(400).send("Please select a file to upload.");
+      await multipleUploadMiddleware(req, res);
+
+      debug(req.files);
+
+      if (req.files.length <= 0) {
+        return res.send(`You must select at least 1 file or more.`);
       }
 
-      // Lưu thông tin về file vào cơ sở dữ liệu
-      const newFile = await File.create({
-        file_name: req.file.originalname,
-        file_url: `/upload/image/${req.file.filename}`,
-        size: req.file.size,
-        extension: req.file.originalname.split(".").pop(),
-      });
+      const filesData = [];
+      for (const file of req.files) {
+        const newFile = await File.create({
+          file_name: file.originalname,
+          file_url: `/upload/image/${file.filename}`,
+          size: file.size,
+          extension: file.originalname.split(".").pop(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+        filesData.push(newFile);
+      }
 
-      // Hiển thị thông báo và link tới file đã tải lên
-      res.send(`
-        You have uploaded this image: <hr/>
-        <img src="${newFile.file_url}" width="500"><hr /> 
-        <a href="/upload">Upload another image</a>
-      `);
+      return res.send(
+        `Your files has been uploaded. <br> <a href="/files">Click here</a> to view the file list.`
+      );
     } catch (error) {
-      console.error("Error uploading file:", error);
-      res.status(500).send("An error occurred while uploading the file.");
-    }
-  },
+      debug(error);
+      if (error.code === "LIMIT_UNEXPECTED_FILE") {
+        return res.send(`Exceeds the number of files allowed to upload.`);
+      }
 
-  handleUploadMultipleFiles: async (req, res) => {
-    if (req.fileValidationError) {
-      return res.send(req.fileValidationError);
-    } else if (!req.files) {
-      return res.send("Please select an image to upload");
+      return res.send(`Error when trying upload many files: ${error}}`);
     }
-    let result = "You have uploaded these images: <hr />";
-    const files = req.files;
-    let index, len;
-    // Loop through all the uploaded images and display them on frontend
-    for (index = 0, len = files.length; index < len; ++index) {
-      result += `<img src="/upload/image/${files[index].filename}" width="300" style="margin-right: 20px;">`;
-    }
-    result += '<hr/><a href="/upload">Upload more images</a>';
-    res.send(result);
   },
 };

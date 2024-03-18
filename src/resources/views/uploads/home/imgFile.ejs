@@ -1,0 +1,15 @@
+<!-- uploadFile.ejs -->
+
+<!-- Hiển thị danh sách ảnh từ cơ sở dữ liệu -->
+<% data.forEach(function(image) { %>
+<div class="image-container">
+  <img src="<%= image.file_url %>" alt="<%= image.file_name %>" />
+  <a href="/delete/<%= image.file_id %>">Xóa</a>
+</div>
+<% }); %>
+
+<!-- Biểu mẫu cho phép tải lên ảnh mới -->
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="image" accept="image/*" />
+  <button type="submit">Tải lên</button>
+</form>

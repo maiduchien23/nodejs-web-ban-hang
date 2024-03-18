@@ -75,4 +75,8 @@ module.exports = {
       res.redirect("/auth/login");
     });
   },
+
+  loginGoogle: (req, res) => {
+    res.redirect("/");
+  },
 };

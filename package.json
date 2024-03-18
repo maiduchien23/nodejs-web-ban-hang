@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@flmngr/flmngr-server-node-express": "^1.5.3",
     "app-root-path": "^3.1.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
@@ -18,19 +19,39 @@
     "express": "^4.18.3",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.0",
+    "express-validator": "^7.0.1",
+    "flmngr": "^2.0.13",
     "http-errors": "~1.6.3",
     "layout": "^2.2.0",
+    "mongoose": "^8.2.2",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.2",
     "passport": "^0.7.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.37.1",
     "sharp": "^0.33.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.6.2"
-  }
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.2.5",
+    "sequelize-cli": "^6.6.2",
+    "typescript": "^5.0.4"
+  },
+  "keywords": [
+    "file-manager",
+    "fileManager",
+    "file",
+    "image",
+    "manager",
+    "server",
+    "express",
+    "node",
+    "example",
+    "sample"
+  ]
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Express File Manager demo</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"></head>
+	<script type="module" src="/flmngr-example.js"></script>
+</head>
+<body style="padding: 20px">
+	<h2>Express File Manager demo</h2>
+	<a href="https://flmngr.com/doc/samples">More samples</a> with live CodePen demos.
+
+	<div style="margin-top:50px">
+		<div id="btn" class="btn btn-primary" style="opacity:0.2;cursor:default">Select image</div>
+		<div id="loading" style="font-size:12px">Loading file manager...</div>
+
+		<h2 class="h5 mt-5">Selected image</h2>
+		<div id="images">
+			No image selected yet.
+		</div>
+	</div>
+
+	<style>
+      #images .image {
+        border: 1px solid #DDD;
+        box-shadow: 5px 5px 0 0 #DDD;
+        background-color: white;
+        padding: 10px;
+        display: inline-flex;
+        flex-direction: column;
+        margin: 0 25px 25px 0;
+      }
+      #images .image img {
+        max-height: 250px;
+        cursor: pointer;
+        border: 2px solid #007FFF;
+      }
+      #images .image img:hover {
+        border-color: orange;
+      }
+      #images .image p {
+        margin: 5px 0 0 0;
+        font-size: 14px;
+        color: #444;
+      }
+
+      .lum-img {
+        cursor: zoom-out;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+      }
+
+      .lum-lightbox {
+        z-index: 1000;
+        cursor: zoom-out;
+      }
+
+      .lum-lightbox-inner img {
+        margin: 0 auto;
+      }
+
+      .lum-lightbox-image-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .lum-close-button {
+        cursor: pointer;
+      }
+
+      .lum-lightbox-image-wrapper {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .hint {
+        color: #007FFF;
+        font-size: 14px;
+        margin-top: 10px;
+        line-height: 16px;
+      }
+	</style>
+</body>
+</html>

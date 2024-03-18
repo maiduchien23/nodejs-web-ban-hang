@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../../../../public/assets/css/main.css" />
+    <title>Uploaded Files</title>
+  </head>
+  <body>
+    <h1>Uploaded Files</h1>
+
+    <label for="filter">Filter by extension:</label>
+    <select id="filter" onchange="filterFiles()">
+      <option value="">All</option>
+      <option value="jpg">JPG</option>
+      <option value="png">PNG</option>
+      <option value="gif">GIF</option>
+    </select>
+
+    <form action="/files/search" method="post">
+      <input type="text" name="searchText" placeholder="Search files..." />
+      <button type="submit">Search</button>
+    </form>
+    <ul id="fileList">
+      <% files.forEach(file => { %>
+      <li data-extension="<%= file.extension %>">
+        <%= file.file_name %> -
+        <a href="#" onclick="openModal('<%= file.file_url %>')">View</a>
+      </li>
+      <% }) %>
+    </ul>
+
+    <!-- JavaScript to filter files -->
+    <!-- JavaScript to filter files -->
+    <script>
+      function filterFiles() {
+        var filter = document.getElementById("filter").value;
+        var fileList = document
+          .getElementById("fileList")
+          .getElementsByTagName("li");
+        for (var i = 0; i < fileList.length; i++) {
+          var extension = fileList[i].getAttribute("data-extension");
+          console.log(extension); // Kiểm tra giá trị của extension
+          if (filter === "" || extension === filter) {
+            fileList[i].style.display = "block";
+          } else {
+            fileList[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
