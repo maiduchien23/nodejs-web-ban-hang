@@ -9,22 +9,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   File.init(
     {
-      file_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      file_name: DataTypes.STRING(255),
-      file_url: DataTypes.STRING(255),
+      name: DataTypes.STRING(255),
+      url: DataTypes.STRING(255),
       size: DataTypes.INTEGER,
       extension: DataTypes.STRING(10),
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "File",
-      tableName: "Files",
+      tableName: "files",
     }
   );
   return File;

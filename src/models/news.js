@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   News.init(
     {
-      news_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -16,18 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING(255),
       content: DataTypes.TEXT,
       author: DataTypes.STRING(100),
-      publish_date: DataTypes.DATE,
-      product_url: DataTypes.STRING(255),
-      meta_title: DataTypes.STRING(255),
-      meta_description: DataTypes.TEXT,
-      meta_keywords: DataTypes.TEXT,
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      publishDate: DataTypes.DATE,
+      productUrl: DataTypes.STRING(255),
+      metaTitle: DataTypes.STRING(255),
+      metaDescription: DataTypes.TEXT,
+      metaKeywords: DataTypes.TEXT,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "News",
-      tableName: "News",
+      tableName: "news",
     }
   );
   return News;

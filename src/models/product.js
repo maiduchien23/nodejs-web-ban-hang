@@ -3,44 +3,44 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     static associate(models) {
-      Product.belongsTo(models.Category, { foreignKey: "category_id" });
-      Product.belongsTo(models.Brand, { foreignKey: "brand_id" });
-      Product.hasMany(models.ProductVariant, { foreignKey: "product_id" });
-      Product.hasMany(models.ProductImage, { foreignKey: "product_id" });
-      Product.hasMany(models.ProductAttribute, { foreignKey: "product_id" });
+      Product.belongsTo(models.Category, { foreignKey: "categoryId" });
+      Product.belongsTo(models.Brand, { foreignKey: "brandId" });
+      Product.hasMany(models.ProductVariant, { foreignKey: "productId" });
+      Product.hasMany(models.ProductImage, { foreignKey: "productId" });
+      Product.hasMany(models.ProductAttribute, { foreignKey: "productId" });
       // Add other associations here
     }
   }
   Product.init(
     {
-      product_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      product_name: DataTypes.STRING(200),
+      name: DataTypes.STRING(200),
       description: DataTypes.TEXT,
-      original_price: DataTypes.DECIMAL,
-      discount_price: DataTypes.DECIMAL,
+      originalPrice: DataTypes.DECIMAL,
+      discountPrice: DataTypes.DECIMAL,
       price: DataTypes.DECIMAL,
-      quantity_available: DataTypes.INTEGER,
-      category_id: DataTypes.INTEGER,
-      brand_id: DataTypes.INTEGER,
-      other_details: DataTypes.TEXT,
+      quantityAvailable: DataTypes.INTEGER,
+      categoryId: DataTypes.INTEGER,
+      brandId: DataTypes.INTEGER,
+      otherDetails: DataTypes.TEXT,
       group: DataTypes.STRING(50),
-      product_url: DataTypes.STRING(255),
-      meta_title: DataTypes.STRING(255),
-      meta_description: DataTypes.TEXT,
-      meta_keywords: DataTypes.TEXT,
-      created_at: DataTypes.DATE,
-      created_by: DataTypes.INTEGER,
-      updated_at: DataTypes.DATE,
-      updated_by: DataTypes.INTEGER,
+      url: DataTypes.STRING(255),
+      metaTitle: DataTypes.STRING(255),
+      metaDescription: DataTypes.TEXT,
+      metaKeywords: DataTypes.TEXT,
+      createdAt: DataTypes.DATE,
+      createdBy: DataTypes.INTEGER,
+      updatedAt: DataTypes.DATE,
+      updatedBy: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: "Product",
-      tableName: "Products",
+      tableName: "products",
     }
   );
   return Product;

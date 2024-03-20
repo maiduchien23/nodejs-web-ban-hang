@@ -2,36 +2,36 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("ComboItems", {
-      combo_item_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      combo_id: {
+      comboId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Combos",
-          key: "combo_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Products",
-          key: "product_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
       quantity: {
         type: Sequelize.INTEGER,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

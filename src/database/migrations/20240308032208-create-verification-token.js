@@ -2,31 +2,31 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("VerificationTokens", {
-      verification_token_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
       token: {
         type: Sequelize.STRING(200),
       },
-      expiry_date: {
+      expiryDate: {
         type: Sequelize.DATE,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

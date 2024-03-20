@@ -8,19 +8,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   ProductSize.init(
     {
-      size_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      size_name: DataTypes.STRING(50),
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      name: DataTypes.STRING(50),
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "ProductSize",
-      tableName: "Product_Sizes",
+      tableName: "productsizes",
     }
   );
   return ProductSize;

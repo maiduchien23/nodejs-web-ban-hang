@@ -3,24 +3,24 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Brand extends Model {
     static associate(models) {
-      Brand.hasMany(models.Product, { foreignKey: "brand_id" });
+      Brand.hasMany(models.Product, { foreignKey: "productId" });
     }
   }
   Brand.init(
     {
-      brand_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      brand_name: DataTypes.STRING(200),
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      name: DataTypes.STRING(200),
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "Brand",
-      tableName: "Brands",
+      tableName: "brands",
     }
   );
   return Brand;

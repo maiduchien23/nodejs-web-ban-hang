@@ -18,7 +18,7 @@ module.exports = {
       const files = await File.findAll({
         where: {
           file_name: {
-            [Op.iLike]: "%" + searchText + "%", // Sử dụng Op.iLike thay vì Sequelize.Op.iLike
+            [Op.iLike]: "%" + searchText + "%",
           },
         },
       });

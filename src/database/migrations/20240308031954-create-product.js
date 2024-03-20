@@ -2,85 +2,85 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Products", {
-      product_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      product_name: {
+      name: {
         type: Sequelize.STRING(200),
       },
       description: {
         type: Sequelize.TEXT,
       },
-      original_price: {
+      originalPrice: {
         type: Sequelize.DECIMAL,
       },
-      discount_price: {
+      discountPrice: {
         type: Sequelize.DECIMAL,
       },
       price: {
         type: Sequelize.DECIMAL,
       },
-      quantity_available: {
+      quantityAvailable: {
         type: Sequelize.INTEGER,
       },
-      category_id: {
+      categoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Categories",
-          key: "category_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      brand_id: {
+      brandId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Brands",
-          key: "brand_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      other_details: {
+      otherDetails: {
         type: Sequelize.TEXT,
       },
       group: {
         type: Sequelize.STRING(50),
       },
-      product_url: {
+      url: {
         type: Sequelize.STRING(255),
       },
-      meta_title: {
+      metaTitle: {
         type: Sequelize.STRING(255),
       },
-      meta_description: {
+      metaDescription: {
         type: Sequelize.TEXT,
       },
-      meta_keywords: {
+      metaKeywords: {
         type: Sequelize.TEXT,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      created_by: {
+      createdBy: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_by: {
+      updatedBy: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },

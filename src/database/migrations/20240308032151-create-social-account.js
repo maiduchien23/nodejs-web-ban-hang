@@ -2,31 +2,31 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("SocialAccounts", {
-      social_account_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      social_media: {
+      socialMedia: {
         type: Sequelize.STRING,
       },
-      social_media_id: {
+      socialMediaId: {
         type: Sequelize.STRING,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

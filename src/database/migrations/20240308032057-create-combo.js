@@ -2,13 +2,13 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Combos", {
-      combo_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      combo_name: {
+      name: {
         type: Sequelize.STRING(200),
       },
       price: {
@@ -17,11 +17,11 @@ module.exports = {
       description: {
         type: Sequelize.TEXT,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

@@ -1,29 +1,43 @@
-const express = require("express");
-const router = express.Router();
-const authController = require("../../http/controller/auth/auth.Controller");
+var express = require("express");
+var router = express.Router();
 const passport = require("passport");
 
-const isLogin = (req, res, next) => {
-  if (req.user) {
-    res.redirect("/");
-  }
-  next();
-};
+const GuestMiddleware = require("../../http/middlewares/guest.Middleware");
+const AuthMiddleware = require("../../http/middlewares/auth.Middleware");
 
-/* Authentication Routes */
-router.get("/login", isLogin, authController.login);
+const AuthController = require("../../http/controller/auth/auth.Controller");
+
+const facebookRouter = require("./facebook");
+const googleRouter = require("./google");
+
+router.get("/login", GuestMiddleware, AuthController.login);
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/admin",
     failureRedirect: "/auth/login",
     failureFlash: true,
+    badRequestMessage: "Không được để trống",
   }),
-  authController.handleLogin
+  AuthController.handleLogin
 );
-router.get("/register", isLogin, authController.register);
-router.post("/register", authController.handleRegister);
 
-router.get("/logout", authController.logout);
+router.get("/verification", AuthMiddleware, AuthController.verification);
+router.post("/verification", AuthController.handleVerification);
+
+router.post("/logout", AuthController.logout);
+
+router.get("/forgot-password", AuthController.forgotPassword);
+router.post("/forgot-password", AuthController.handleForgotPassword);
+
+router.get("/reset", AuthController.reset);
+router.post("/reset", AuthController.handleReset);
+
+router.post("/resetOtp", AuthController.resetOtp);
+
+router.get("/first-login", AuthController.firstLogin);
+router.patch("/first-login", AuthController.handleFirstLogin);
+
+router.use("/", facebookRouter);
+router.use("/", googleRouter);
 
 module.exports = router;

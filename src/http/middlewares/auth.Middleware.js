@@ -1,8 +1,8 @@
-const isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
+module.exports = (req, res, next) => {
+  if (req.user) {
+    console.log("Auth Middleware");
+    res.redirect("/auth/login");
+    return;
   }
-  res.redirect("/auth/login");
+  next();
 };
-
-module.exports = isAuthenticated;

@@ -3,19 +3,19 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Order, { foreignKey: "user_id" });
-      User.hasMany(models.SocialAccount, { foreignKey: "user_id" });
-      User.hasMany(models.Session, { foreignKey: "user_id" });
-      User.hasMany(models.RefreshToken, { foreignKey: "user_id" });
-      User.hasMany(models.VerificationToken, { foreignKey: "user_id" });
-      User.hasMany(models.UserRole, { foreignKey: "user_id" });
-      User.hasMany(models.OTP, { foreignKey: "user_id" });
-      // Add other associations here
+      User.belongsTo(models.Type, { foreignKey: "typeId" });
+      User.hasMany(models.Order, { foreignKey: "userId" });
+      User.hasMany(models.SocialAccount, { foreignKey: "userId" });
+      User.hasMany(models.Session, { foreignKey: "userId" });
+      User.hasMany(models.RefreshToken, { foreignKey: "userId" });
+      User.hasMany(models.VerificationToken, { foreignKey: "userId" });
+      User.hasMany(models.UserRole, { foreignKey: "userId" });
+      User.hasMany(models.OTP, { foreignKey: "userId" });
     }
   }
   User.init(
     {
-      user_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -27,16 +27,17 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       address: DataTypes.STRING(200),
-      phone_number: DataTypes.STRING,
-      first_login: {
+      phone: DataTypes.STRING,
+      typeId: DataTypes.INTEGER,
+      firstLogin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
-      updated_at: {
+      updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
@@ -44,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
-      tableName: "Users",
+      tableName: "users",
     }
   );
   return User;

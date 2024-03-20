@@ -4,29 +4,29 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class OTP extends Model {
     static associate(models) {
-      OTP.belongsTo(models.User, { foreignKey: "user_id" });
+      OTP.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
   OTP.init(
     {
-      otp_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: DataTypes.INTEGER,
-      otp_code: {
+      userId: DataTypes.INTEGER,
+      otpCode: {
         type: DataTypes.STRING(10),
         unique: true,
       },
-      expiry_time: DataTypes.DATE,
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      expiryTime: DataTypes.DATE,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "OTP",
-      tableName: "OTP",
+      tableName: "otp",
     }
   );
   return OTP;

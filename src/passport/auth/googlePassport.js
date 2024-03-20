@@ -1,7 +1,7 @@
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const model = require("../../models/index");
-const SocialAccount = model.SocialAccount;
 const User = model.User;
+const SocialAccount = model.SocialAccount;
 
 module.exports = new GoogleStrategy(
   {
@@ -12,18 +12,18 @@ module.exports = new GoogleStrategy(
     scope: ["profile", "email"],
     prompt: "select_account",
   },
-
   async (req, accessToken, refreshToken, profile, done) => {
     const { id } = profile;
 
-    const social_media = "google";
-    let socialDetail = await SocialAccount.findOne({
+    const provider = "google";
+    let providerDetail = await SocialAccount.findOne({
       where: {
-        social_media: social_media,
-        social_media_id: id,
+        socialMedia: provider,
+        socialMediaId: id,
       },
     });
-    if (!socialDetail?.user_id) {
+
+    if (!providerDetail?.userId) {
       done(null, false, {
         message: req.flash(
           "error",
@@ -32,11 +32,13 @@ module.exports = new GoogleStrategy(
       });
       return;
     }
+
     const user = await User.findOne({
       where: {
-        id: socialDetail.user_id,
+        id: providerDetail.userId,
       },
     });
+
     return done(null, user);
   }
 );

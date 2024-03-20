@@ -6,25 +6,25 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Role.belongsToMany(models.User, {
         through: models.UserRole,
-        foreignKey: "role_id",
+        foreignKey: "roleId",
       });
     }
   }
   Role.init(
     {
-      role_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      role_name: DataTypes.STRING,
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      name: DataTypes.STRING,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "Role",
-      tableName: "Roles",
+      tableName: "roles",
     }
   );
   return Role;

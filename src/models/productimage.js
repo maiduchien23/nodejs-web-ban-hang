@@ -3,25 +3,25 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ProductImage extends Model {
     static associate(models) {
-      ProductImage.belongsTo(models.Product, { foreignKey: "product_id" });
+      ProductImage.belongsTo(models.Product, { foreignKey: "productId" });
     }
   }
   ProductImage.init(
     {
-      image_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      product_id: DataTypes.INTEGER,
-      image_url: DataTypes.STRING(255),
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      productId: DataTypes.INTEGER,
+      url: DataTypes.STRING(255),
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "ProductImage",
-      tableName: "Product_Images",
+      tableName: "productimages",
     }
   );
   return ProductImage;

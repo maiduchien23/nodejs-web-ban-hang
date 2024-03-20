@@ -2,16 +2,16 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Files", {
-      file_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      file_name: {
+      name: {
         type: Sequelize.STRING(255),
       },
-      file_url: {
+      url: {
         type: Sequelize.STRING(255),
       },
       size: {
@@ -20,11 +20,11 @@ module.exports = {
       extension: {
         type: Sequelize.STRING(10),
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

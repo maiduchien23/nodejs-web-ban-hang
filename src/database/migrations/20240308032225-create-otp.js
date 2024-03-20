@@ -2,32 +2,32 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("OTP", {
-      otp_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      otp_code: {
+      otpCode: {
         type: Sequelize.STRING(10),
         unique: true,
       },
-      expiry_time: {
+      expiryTime: {
         type: Sequelize.DATE,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

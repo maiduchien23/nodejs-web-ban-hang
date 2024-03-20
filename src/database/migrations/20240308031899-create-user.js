@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Users", {
-      user_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -21,18 +21,26 @@ module.exports = {
       address: {
         type: Sequelize.STRING(200),
       },
-      phone_number: {
+      phone: {
         type: Sequelize.STRING,
       },
-      first_login: {
+      typeId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Types",
+          key: "id",
+        },
+      },
+      firstLogin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

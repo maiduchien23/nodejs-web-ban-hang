@@ -9,20 +9,20 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserRole.init(
     {
-      user_role_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: DataTypes.INTEGER,
-      role_id: DataTypes.INTEGER,
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      userId: DataTypes.INTEGER,
+      roleId: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "UserRole",
-      tableName: "User_Roles",
+      tableName: "userroles",
     }
   );
   return UserRole;

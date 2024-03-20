@@ -2,17 +2,17 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("ProductVariants", {
-      variant_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Products",
-          key: "product_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
@@ -22,23 +22,23 @@ module.exports = {
       size: {
         type: Sequelize.STRING(20),
       },
-      original_price: {
+      originalPrice: {
         type: Sequelize.DECIMAL,
       },
-      discount_price: {
+      discountPrice: {
         type: Sequelize.DECIMAL,
       },
       price: {
         type: Sequelize.DECIMAL,
       },
-      quantity_available: {
+      quantityAvailable: {
         type: Sequelize.INTEGER,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

@@ -8,19 +8,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   OriginCountry.init(
     {
-      origin_country_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      country_name: DataTypes.STRING(100),
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      name: DataTypes.STRING(100),
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "OriginCountry",
-      tableName: "Origin_Countries",
+      tableName: "origincountries",
     }
   );
   return OriginCountry;

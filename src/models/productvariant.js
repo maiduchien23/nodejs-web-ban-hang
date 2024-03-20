@@ -3,30 +3,30 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ProductVariant extends Model {
     static associate(models) {
-      ProductVariant.belongsTo(models.Product, { foreignKey: "product_id" });
+      ProductVariant.belongsTo(models.Product, { foreignKey: "productId" });
     }
   }
   ProductVariant.init(
     {
-      variant_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      product_id: DataTypes.INTEGER,
+      productId: DataTypes.INTEGER,
       color: DataTypes.STRING(50),
       size: DataTypes.STRING(20),
-      original_price: DataTypes.DECIMAL,
-      discount_price: DataTypes.DECIMAL,
+      originalPrice: DataTypes.DECIMAL,
+      discountPrice: DataTypes.DECIMAL,
       price: DataTypes.DECIMAL,
-      quantity_available: DataTypes.INTEGER,
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      quantityAvailable: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "ProductVariant",
-      tableName: "Product_Variants",
+      tableName: "productvariants",
     }
   );
   return ProductVariant;

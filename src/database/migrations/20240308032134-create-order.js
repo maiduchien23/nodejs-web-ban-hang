@@ -2,30 +2,30 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Orders", {
-      order_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      order_date: {
+      orderDate: {
         type: Sequelize.DATE,
       },
-      total_amount: {
+      totalAmount: {
         type: Sequelize.DECIMAL,
       },
       status: {
         type: Sequelize.STRING(200),
       },
-      phone_number: {
+      phone: {
         type: Sequelize.STRING(20),
       },
       province: {
@@ -37,33 +37,33 @@ module.exports = {
       ward: {
         type: Sequelize.STRING(100),
       },
-      address_detail: {
+      addressDetail: {
         type: Sequelize.STRING(255),
       },
-      order_note: {
+      orderNote: {
         type: Sequelize.TEXT,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      created_by: {
+      createdBy: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_by: {
+      updatedBy: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key: "user_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },

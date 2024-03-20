@@ -2,28 +2,28 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("ProductImages", {
-      image_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Products",
-          key: "product_id",
+          key: "id",
         },
         onDelete: "CASCADE",
       },
-      image_url: {
+      imageUrl: {
         type: Sequelize.STRING(255),
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

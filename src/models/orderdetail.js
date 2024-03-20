@@ -4,28 +4,28 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class OrderDetail extends Model {
     static associate(models) {
-      OrderDetail.belongsTo(models.Order, { foreignKey: "order_id" });
-      OrderDetail.belongsTo(models.Product, { foreignKey: "product_id" });
+      OrderDetail.belongsTo(models.Order, { foreignKey: "orderId" });
+      OrderDetail.belongsTo(models.Product, { foreignKey: "productId" });
     }
   }
   OrderDetail.init(
     {
-      order_detail_id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      order_id: DataTypes.INTEGER,
-      product_id: DataTypes.INTEGER,
+      orderId: DataTypes.INTEGER,
+      productId: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
-      price_per_unit: DataTypes.DECIMAL,
-      created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE,
+      pricePerUnit: DataTypes.DECIMAL,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "OrderDetail",
-      tableName: "Order_Details",
+      tableName: "orderdetails",
     }
   );
   return OrderDetail;

@@ -1,30 +1,45 @@
 "use strict";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+
+const model = require("../../models/index");
+const Type = model.Type;
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("Users", [
-      {
-        name: "Mai Đức Hiền",
-        password: await bcrypt.hash("123456", saltRounds),
-        email: "mhien2302@gmail.com",
-        address: "Hà Nội",
-        phone_number: "0123456789",
-        created_at: new Date(),
-        updated_at: new Date(),
+    const typeAdmin = await Type.findOne({
+      where: {
+        name: "Admin",
       },
+    });
 
-      {
-        name: "Mai Đức Hiếu",
-        password: await bcrypt.hash("123456", saltRounds),
-        email: "hieu@gmail.com",
-        address: "Hà Nội",
-        phone_number: "0123456789",
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    ]);
+    await queryInterface.bulkInsert(
+      "Users",
+      [
+        {
+          name: "Đức Hiền",
+          email: "mdhien2302@gmail.com",
+          password: bcrypt.hashSync("123456", saltRounds),
+          phone: "0869998888",
+          address: "Hà Nội",
+          typeId: typeAdmin.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "Mai Đức Hiền",
+          email: "maiduchien23@gmail.com",
+          password: bcrypt.hashSync("123456", saltRounds),
+          phone: "0869998888",
+          address: "Hà Nội",
+          typeId: typeAdmin.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {

@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("News", {
-      news_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -17,26 +17,26 @@ module.exports = {
       author: {
         type: Sequelize.STRING(100),
       },
-      publish_date: {
+      publishDate: {
         type: Sequelize.DATE,
       },
-      product_url: {
+      productUrl: {
         type: Sequelize.STRING(255),
       },
-      meta_title: {
+      metaTitle: {
         type: Sequelize.STRING(255),
       },
-      meta_description: {
+      metaDescription: {
         type: Sequelize.TEXT,
       },
-      meta_keywords: {
+      metaKeywords: {
         type: Sequelize.TEXT,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
