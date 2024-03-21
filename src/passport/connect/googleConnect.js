@@ -16,14 +16,12 @@ module.exports = new GoogleStrategy(
     const socialMedia = "google";
 
     try {
-      // Create a new entry in the Social_Accounts table
       await Social_Accounts.create({
         userId: userId,
         socialMedia: socialMedia,
         socialMediaId: id,
       });
 
-      // Find the user to return
       const user = await User.findByPk(userId);
       if (!user) {
         return done(null, false, { message: "User not found" });
