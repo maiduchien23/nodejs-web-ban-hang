@@ -21,7 +21,7 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
     "flmngr": "^2.0.13",
-    "http-errors": "~1.6.3",
+    "http-errors": "~1.8.1",
     "jsonwebtoken": "^9.0.2",
     "layout": "^2.2.0",
     "md5": "^2.3.0",
