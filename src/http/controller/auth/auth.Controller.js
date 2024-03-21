@@ -22,46 +22,49 @@ module.exports = {
   },
 
   handleLogin: async (req, res) => {
-    const { email } = req.body;
-    const { id } = req.user;
+    const { email, password } = req.body;
 
-    const userOtp = await OTP.findOne({
-      where: {
-        userId: id,
-      },
-    });
-    if (userOtp) {
-      await userOtp.destroy();
+    try {
+      const user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        req.flash("error", "Email không tồn tại");
+        return res.redirect("/auth/login");
+      }
+
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordCorrect) {
+        req.flash("error", "Mật khẩu không chính xác");
+        return res.redirect("/auth/login");
+      }
+
+      await OTP.destroy({ where: { userId: user.id } });
+
+      const otp = Math.floor(Math.random() * 90000) + 10000;
+      const timeExpires = new Date(new Date().getTime() + 60000);
+      const html = "<b>Mã xác minh để đăng nhập: </b>" + otp;
+      SendMail(email, "Xác minh tài khoản", html);
+      await OTP.create({
+        otpCode: otp,
+        userId: user.id,
+        expiryTime: timeExpires,
+      });
+
+      await RefreshToken.destroy({ where: { userId: user.id } });
+
+      const token = md5(new Date() + Math.random());
+      await RefreshToken.create({ token, userId: user.id });
+
+      res.cookie("token", token, { maxAge: 900000, httpOnly: true });
+
+      req.flash("email", email);
+      return res.redirect("/auth/verification");
+    } catch (error) {
+      console.error("Login error:", error);
+      req.flash("error", "Đã xảy ra lỗi khi đăng nhập");
+      return res.redirect("/auth/login");
     }
-    const otp = Math.floor(Math.random() * 90000) + 10000; // otp có 5 chữ số
-    const timeExpires = new Date(new Date().getTime() + 60000);
-    const html = "<b>Mã xác minh để đăng nhập: </b>" + otp;
-    SendMail(email, "Xác minh tài khoản", html);
-    await OTP.create({
-      otpCode: otp,
-      userId: id,
-      expiryTime: FormatDate(new Date(timeExpires)),
-    });
-
-    const tokenUser = await RefreshToken.findOne({
-      where: {
-        userId: id,
-      },
-    });
-
-    if (tokenUser) {
-      await tokenUser.destroy();
-    }
-
-    const token = md5(new Date() + Math.random());
-    await RefreshToken.create({
-      token: token,
-      userId: id,
-    });
-    res.cookie("token", token, { maxAge: 900000, httpOnly: true });
-
-    req.flash("email", email);
-    res.redirect("/auth/verification");
   },
 
   loginFacebook: (req, res) => {

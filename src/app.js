@@ -40,6 +40,7 @@ const connectGooglePassport = require("./passport/connect/googleConnect");
 // Khai báo Middleware
 const AuthMiddleware = require("./http/middlewares/auth.Middleware");
 const LoginFirstTimeMiddleware = require("./http/middlewares/loginFirsttime.Middleware");
+const DeviceMiddleware = require("./http/middlewares/device.Middleware");
 // View engine setup
 app.set("views", path.join(__dirname, "resources/views"));
 app.set("view engine", "ejs");
@@ -106,16 +107,16 @@ flmngr.bindFlmngr({
 });
 
 // Routes
-app.use("/", uploadRouter);
-app.use("/", productRouter);
 app.use("/auth", authRouter);
 app.use(AuthMiddleware);
 app.use(LoginFirstTimeMiddleware);
+app.use(DeviceMiddleware);
+app.use("/connect", connectRouter);
 app.use("/admin", authMiddleware, adminRouter);
 app.use("/upload", uploadRouter);
 app.use("/products", productRouter);
 app.use("/image", imageRouter);
-app.use("/connect", connectRouter);
+
 // Error handling
 app.use(function (req, res, next) {
   const err = new Error("Not Found");
