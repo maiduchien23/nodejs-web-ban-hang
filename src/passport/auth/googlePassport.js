@@ -13,7 +13,7 @@ module.exports = new GoogleStrategy(
     prompt: "select_account",
   },
   async (req, accessToken, refreshToken, profile, done) => {
-    const { id } = profile;
+    const { id, displayName, email } = profile;
 
     const provider = "google";
     let providerDetail = await SocialAccount.findOne({
@@ -27,17 +27,24 @@ module.exports = new GoogleStrategy(
       done(null, false, {
         message: req.flash(
           "error",
-          "Không tồn tại tài khoản nào liên kết với google này!"
+          "Không tồn tại tài khoản nào liên kết với Google này!"
         ),
       });
       return;
     }
 
-    const user = await User.findOne({
+    let user = await User.findOne({
       where: {
         id: providerDetail.userId,
       },
     });
+
+    if (!user) {
+      user = await User.create({
+        username: displayName,
+        email,
+      });
+    }
 
     return done(null, user);
   }

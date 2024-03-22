@@ -1,5 +1,5 @@
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
-const { User, Social_Accounts } = require("../../models/index");
+const { User, SocialAccounts } = require("../../models/index");
 
 module.exports = new GoogleStrategy(
   {
@@ -16,7 +16,7 @@ module.exports = new GoogleStrategy(
     const socialMedia = "google";
 
     try {
-      await Social_Accounts.create({
+      await SocialAccounts.create({
         userId: userId,
         socialMedia: socialMedia,
         socialMediaId: id,

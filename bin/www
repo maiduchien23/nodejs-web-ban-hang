@@ -6,7 +6,8 @@
 
 var app = require("../src/app");
 var debug = require("debug")("web-ban-hang:server");
-var http = require("http");
+var https = require("https"); // Thay đổi từ 'http' sang 'https'
+var fs = require("fs");
 
 /**
  * Get port from environment and store in Express.
@@ -16,10 +17,15 @@ var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
 /**
- * Create HTTP server.
+ * Create HTTPS server.
  */
 
-var server = http.createServer(app);
+var options = {
+  key: fs.readFileSync("./cert.key"),
+  cert: fs.readFileSync("./cert.crt"),
+};
+
+var server = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -50,7 +56,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for HTTPS server "error" event.
  */
 
 function onError(error) {
@@ -76,12 +82,12 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for HTTPS server "listening" event.
  */
 
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
-  console.log("Sever running: http://localhost:" + port);
+  console.log("Server running: https://localhost:" + port);
 }

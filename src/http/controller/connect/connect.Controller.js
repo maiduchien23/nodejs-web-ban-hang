@@ -13,9 +13,7 @@ module.exports = {
     });
 
     if (typeName.name === "Admin") {
-      return res.redirect("/admin/profile");
-    } else {
-      return res.redirect("/profile");
+      return res.redirect("/admin");
     }
   },
 
@@ -29,9 +27,7 @@ module.exports = {
     });
 
     if (typeName.name === "Admin") {
-      return res.redirect("/admin/profile");
-    } else {
-      return res.redirect("/profile");
+      return res.redirect("/admin");
     }
   },
 
@@ -55,7 +51,7 @@ module.exports = {
 
     if (typeName.name === "Admin") {
     } else {
-      return res.redirect("/profile");
+      return res.redirect("/admin");
     }
   },
 
@@ -78,9 +74,7 @@ module.exports = {
     });
 
     if (typeName.name === "Admin") {
-      return res.redirect("/admin/profile");
-    } else {
-      return res.redirect("/profile");
+      return res.redirect("/admin");
     }
   },
 };

@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.VerificationToken, { foreignKey: "userId" });
       User.hasMany(models.UserRole, { foreignKey: "userId" });
       User.hasMany(models.OTP, { foreignKey: "userId" });
+      User.belongsToMany(models.Role, {
+        through: "UserRole",
+        foreignKey: "userId",
+      });
+      User.belongsToMany(models.Permission, {
+        through: "UserPermissions",
+        foreignKey: "userId",
+      });
     }
   }
   User.init(

@@ -53,13 +53,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(
-  methodOverride(function (req, res) {
-    if (req.body && typeof req.body === "object" && "_method" in req.body) {
-      // look in urlencoded POST bodies and delete it
-      var method = req.body._method;
-      delete req.body._method;
-      return method;
-    }
+  cors({
+    origin: "https://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 // Session middleware
@@ -68,6 +65,7 @@ app.use(
     secret: "123456",
     resave: true,
     saveUninitialized: true,
+    cookie: { secure: false },
   })
 );
 

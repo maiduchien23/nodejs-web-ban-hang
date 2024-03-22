@@ -2,9 +2,9 @@
   "configurations": [
     {
       "type": "chrome",
-      "name": "http://localhost:3000/auth/login",
+      "name": "https://localhost:3000/auth/login",
       "request": "launch",
-      "url": "http://localhost:3000/auth/login"
+      "url": "https://localhost:3000/auth/login"
     }
   ]
 }

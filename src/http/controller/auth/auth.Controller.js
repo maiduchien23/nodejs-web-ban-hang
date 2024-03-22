@@ -68,11 +68,11 @@ module.exports = {
   },
 
   loginFacebook: (req, res) => {
-    res.redirect("/");
+    res.redirect("/admin");
   },
 
   loginGoogle: (req, res) => {
-    res.redirect("/");
+    res.redirect("/admin");
   },
 
   verification: async (req, res) => {
@@ -109,7 +109,7 @@ module.exports = {
         return;
       }
 
-      res.redirect("/");
+      res.redirect("/admin");
       return;
     }
     req.flash("message", "Mã OTP không chính xác");

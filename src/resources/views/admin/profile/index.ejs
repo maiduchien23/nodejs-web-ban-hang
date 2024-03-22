@@ -5,7 +5,12 @@
         <div class="card mb-4">
           <h5 class="m-4"><strong>Ảnh đại diện</strong></h5>
           <div class="card-body text-center mb-5">
-           
+            <img
+              src="https://www.kindpng.com/picc/m/78-786678_avatar-hd-png-download.png"
+              alt="avatar"
+              class="rounded-circle img-fluid"
+              style="width: 150px"
+            />
           </div>
         </div>
       </div>
@@ -51,7 +56,11 @@
             <hr />
             <div class="row">
               <div class="col-sm-5">
-                <form action="/admin/profile/update" method="get">
+                <form
+                  id="updateProfileForm"
+                  action="/admin/profile/update"
+                  method="get"
+                >
                   <button type="submit" class="btn btn-block btn-info">
                     Cập nhập thông tin
                   </button>
@@ -65,7 +74,7 @@
             <div class="card mb-4 mb-md-0">
               <div class="card-body">
                 <h5 class="mb-4">
-                  <strong>Kết nối mạng xã hội dễ dàng hơn</strong>
+                  <strong>Kết nối mạng xã hội </strong>
                 </h5>
                 <div class="d-flex flex-row">
                   <div class="col-md-2">
@@ -73,10 +82,7 @@
                   </div>
                   <div class="col-md-7">
                     <div class="background_box background_box_facebook">
-                      <input type="checkbox" id="checkbox_fb"
-                      class="checkbox_social" <% userSocials.forEach( (user) =>
-                      { %> <%= user.provider === 'facebook' ?"checked" : "" %>
-                      <% }) %> />
+                      <input type="checkbox" id="checkbox_fb" />
                       <label
                         class="toggle_box toggle_box_facebook"
                         for="checkbox_fb"
@@ -91,10 +97,7 @@
                   </div>
                   <div class="col-md-7">
                     <div class="background_box background_box_google">
-                      <input type="checkbox" id="checkbox_google"
-                      class="checkbox_social" <% userSocials.forEach( (user) =>
-                      { %> <%= user.provider === 'google' ?"checked" : "" %> <%
-                      }) %> />
+                      <input type="checkbox" id="checkbox_google" />
                       <label
                         class="toggle_box toggle_box_google"
                         for="checkbox_goole"
@@ -103,7 +106,20 @@
                     </div>
                   </div>
                 </div>
-                  
+                <div class="d-flex flex-row">
+                  <div class="col-md-2">
+                    <p>Github</p>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="background_box background_box_github">
+                      <input type="checkbox" id="checkbox_github" />
+                      <label
+                        class="toggle_box toggle_box_github"
+                        for="checkbox_github"
+                      >
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

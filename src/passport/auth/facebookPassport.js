@@ -13,7 +13,7 @@ module.exports = new FacebookStrategy(
     profileFields: ["id", "displayName", "email"],
   },
   async (req, accessToken, refreshToken, profile, done) => {
-    const { id, email } = profile;
+    const { id, displayName, email } = profile;
     const provider = "facebook";
 
     let socialAccount = await SocialAccount.findOne({
@@ -34,6 +34,18 @@ module.exports = new FacebookStrategy(
     }
 
     let user = await User.findByPk(socialAccount.userId);
+
+    if (!user) {
+      user = await User.create({
+        username: displayName,
+        email,
+      });
+    } else {
+      user.username = displayName;
+      user.email = email;
+
+      await user.save();
+    }
 
     done(null, user);
   }
