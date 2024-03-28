@@ -20,8 +20,6 @@ const authRouter = require("./routes/auth/index");
 const imageRouter = require("./routes/uploads/image.Router");
 const connectRouter = require("./routes/connect/index");
 
-const authMiddleware = require("./http/middlewares/auth.Middleware");
-
 // Khai báo model
 const app = express();
 const model = require("./models/index");
@@ -40,9 +38,10 @@ const connectGooglePassport = require("./passport/connect/googleConnect");
 // Khai báo Middleware
 const AuthMiddleware = require("./http/middlewares/auth.Middleware");
 const LoginFirstTimeMiddleware = require("./http/middlewares/loginFirsttime.Middleware");
+//const RoleMiddleware = require("./http/middlewares/role.Middleware");
 const DeviceMiddleware = require("./http/middlewares/device.Middleware");
 // View engine setup
-app.set("views", path.join(__dirname, "resources/views"));
+app.set("views", path.join(__dirname, "./resources/views"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "layouts/master.layout.ejs");
@@ -53,10 +52,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(
-  cors({
-    origin: "https://localhost:3000",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+  methodOverride(function (req, res) {
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
+      // look in urlencoded POST bodies and delete it
+      var method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
   })
 );
 // Session middleware
@@ -110,11 +112,12 @@ app.use(AuthMiddleware);
 app.use(LoginFirstTimeMiddleware);
 app.use(DeviceMiddleware);
 app.use("/connect", connectRouter);
-app.use("/admin", authMiddleware, adminRouter);
+app.use("/admin", adminRouter);
 app.use("/upload", uploadRouter);
 app.use("/products", productRouter);
 app.use("/image", imageRouter);
 
+app.use(methodOverride("_method"));
 // Error handling
 app.use(function (req, res, next) {
   const err = new Error("Not Found");

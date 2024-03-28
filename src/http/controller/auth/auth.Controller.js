@@ -145,7 +145,7 @@ module.exports = {
       },
       JWT_SECRET
     );
-    const link = `http://localhost:3000/auth/first-loginreset?token=${token}`;
+    const link = `https://localhost:3000/auth/reset?token=${token}`;
     const html = `<b>Vui lòng click vào đây để lấy lại mật khẩu <a href="${link}">tại đây</a></b>`;
     SendMail(email, "Lấy lại mật khẩu", html);
     res.redirect("/auth/login");
@@ -205,7 +205,7 @@ module.exports = {
     const html = "<b>Mã xác minh để đăng nhập: </b>" + otp;
     SendMail(email, "Xác minh tài khoản", html);
     await OTP.create({
-      otpCode: otpCode,
+      otpCode: otp,
       userId: id,
       expiryTime: timeExpires,
     });
@@ -223,25 +223,19 @@ module.exports = {
     const { password, repassword } = req.body;
     if (password === repassword) {
       try {
-        if (req.user && req.user.email) {
-          await User.update(
-            {
-              password: bcrypt.hashSync(password, saltRounds),
-              firstLogin: 1,
+        await User.update(
+          {
+            password: bcrypt.hashSync(password, saltRounds),
+            firstLogin: 1,
+          },
+          {
+            where: {
+              email: req.user.email,
             },
-            {
-              where: {
-                email: req.user.email,
-              },
-            }
-          );
+          }
+        );
 
-          return res.redirect("/admin");
-        } else {
-          console.log(
-            "Đối tượng req.user không tồn tại hoặc không có thuộc tính 'email'"
-          );
-        }
+        return res.redirect("/admin");
       } catch (err) {
         console.log(err);
       }

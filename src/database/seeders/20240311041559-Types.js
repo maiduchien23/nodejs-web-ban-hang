@@ -9,6 +9,16 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Customer",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Manager",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

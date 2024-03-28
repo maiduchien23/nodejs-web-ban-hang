@@ -1,101 +1,103 @@
-<aside class="app-sidebar">
-  <div class="app-sidebar__user">
-    <div>
-      <p class="app-sidebar__user-name"><b>Admin</b></p>
-      <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-    </div>
-  </div>
-  <hr />
-  <ul class="app-menu">
-    <li>
-      <a class="app-menu__item haha" href="/admin/categories">
-        <i class="app-menu__icon bx bx-cart-alt"></i>
-        <span class="app-menu__label">Danh mục sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/brands">
-        <i class="app-menu__icon bx bx-tachometer"></i>
-        <span class="app-menu__label">Nhãn hiệu sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/products">
-        <i class="app-menu__icon bx bx-purchase-tag-alt"></i>
-        <span class="app-menu__label">Sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/product-variants">
-        <i class="app-menu__icon bx bx-id-card"></i>
-        <span class="app-menu__label">Biến thể sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/product-images">
-        <i class="app-menu__icon bx bx-user-voice"></i>
-        <span class="app-menu__label">Hình ảnh sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/product-attributes">
-        <i class="app-menu__icon bx bx-task"></i>
-        <span class="app-menu__label">Thuộc tính sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/product-sizes">
-        <i class="app-menu__icon bx bx-run"></i>
-        <span class="app-menu__label">Kích thước sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/product-colors">
-        <i class="app-menu__icon bx bx-dollar"></i>
-        <span class="app-menu__label">Màu sắc sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/product-materials">
-        <i class="app-menu__icon bx bx-pie-chart-alt-2"></i>
-        <span class="app-menu__label">Vật liệu sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/origin-countries">
-        <i class="app-menu__icon bx bx-calendar-check"></i>
-        <span class="app-menu__label">Quốc gia xuất xứ</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/combos">
-        <i class="app-menu__icon bx bx-cog"></i>
-        <span class="app-menu__label">Combo sản phẩm</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/combo-items">
-        <i class="app-menu__icon bx bx-cog"></i>
-        <span class="app-menu__label">Mục Combo</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/news">
-        <i class="app-menu__icon bx bx-cog"></i>
-        <span class="app-menu__label">Tin tức</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/advertisements">
-        <i class="app-menu__icon bx bx-cog"></i>
-        <span class="app-menu__label">Quảng cáo</span>
-      </a>
-    </li>
-    <li>
-      <a class="app-menu__item" href="/admin/files">
-        <i class="app-menu__icon bx bx-cog"></i>
-        <span class="app-menu__label">Tập tin</span>
-      </a>
-    </li>
-  </ul>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+	<!-- Brand Logo -->
+	<a href="/admin"
+		class="brand-link">
+		<span class="d-flex align-items-center brand-text font-weight-light">
+			
+			<h3 class="font-weight-bold mb-0 ml-2">Admin</h3>
+		</span>
+	</a>
+
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<!-- Sidebar Menu -->
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar flex-column"
+				data-widget="treeview"
+				role="menu"
+				data-accordion="false">
+				<!-- Add icons to the links using the .nav-icon class
+   with font-awesome or any other icon font library -->
+				<li class="nav-item">
+					<a href="/admin"
+						class="nav-link <%= moduleName === "Tổng quan" ? "active" : "" %>">
+						<i class="nav-icon fas fa-tachometer-alt"></i>
+						<p>Tổng quan</p>
+					</a>
+				</li>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'users.read')) {%>
+				<li class="nav-item <%= moduleName === "Người dùng" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "Người dùng" ? "active" : "" %>">
+						<i class="nav-icon fas fa-users"></i>
+						<p>
+							Người dùng
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="/admin/users"
+								class="nav-link <%= title === "Danh sách người dùng" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+						<% if(permissionUtils.getPermissionUser(permissionUser, 'users.add')) {%>
+						<li class="nav-item">
+							<a href="/admin/users/add"
+								class="nav-link <%= title === "Thêm người dùng" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						<% } %>
+					</ul>
+				</li>
+				<% } %>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'roles.read')) {%>
+				<li class="nav-item <%= moduleName === "Role" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "Role" ? "active" : "" %>">
+						<i class="fas fa-user-cog"></i>
+						<p>
+							Role
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="/admin/roles"
+								class="nav-link <%= title === "Danh sách Role" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+						<% if(permissionUtils.getPermissionUser(permissionUser, 'roles.add')) {%>
+						<li class="nav-item">
+							<a href="/admin/roles/add"
+								class="nav-link <%= title === "Thêm role" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						<% } %>
+					</ul>
+				</li>
+				<% } %>
+			
+				<li class="nav-item">
+					<a href="/admin/settings"
+						class="nav-link <%= moduleName === "Cài đặt" ? "active" : "" %>">
+						<i class="fas fa-cog"></i>
+						<p>
+							Cài Đặt
+						</p>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
 </aside>
