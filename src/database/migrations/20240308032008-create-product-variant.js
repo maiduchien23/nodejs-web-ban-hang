@@ -16,11 +16,21 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      color: {
+      colorId: {
         type: Sequelize.STRING(50),
+        references: {
+          model: "ProductColors",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
-      size: {
+      sizeId: {
         type: Sequelize.STRING(20),
+        references: {
+          model: "ProductSizes",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       originalPrice: {
         type: Sequelize.DECIMAL,
@@ -30,6 +40,9 @@ module.exports = {
       },
       price: {
         type: Sequelize.DECIMAL,
+      },
+      state: {
+        type: Sequelize.STRING(50),
       },
       quantityAvailable: {
         type: Sequelize.INTEGER,

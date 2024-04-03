@@ -85,9 +85,38 @@
 					</ul>
 				</li>
 				<% } %>
-			
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.read')) {%>
+				<li class="nav-item <%= moduleName === "Sản phẩm" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "Sản phẩm" ? "active" : "" %>">
+						<i class="fas fa-shopping-cart"></i>
+						<p>
+							Danh mục sản phẩm
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="/admin/products"
+								class="nav-link <%= title === "Danh sách sản phẩm" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.add')) {%>
+						<li class="nav-item">
+							<a href="/admin/products/add"
+								class="nav-link <%= title === "Thêm sản phẩm" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						<% } %>
+					</ul>
+				</li>
+				<% } %>
 				<li class="nav-item">
-					<a href="/admin/settings"
+					<a href="/admin/setting"
 						class="nav-link <%= moduleName === "Cài đặt" ? "active" : "" %>">
 						<i class="fas fa-cog"></i>
 						<p>

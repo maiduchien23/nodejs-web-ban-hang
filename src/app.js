@@ -13,7 +13,7 @@ const methodOverride = require("method-override");
 const cors = require("cors");
 
 // Khai báo Router
-const productRouter = require("./routes/products/index");
+
 const uploadRouter = require("./routes/uploads/index");
 const adminRouter = require("./routes/admin/index");
 const authRouter = require("./routes/auth/index");
@@ -114,7 +114,7 @@ app.use(DeviceMiddleware);
 app.use("/connect", connectRouter);
 app.use("/admin", adminRouter);
 app.use("/upload", uploadRouter);
-app.use("/products", productRouter);
+
 app.use("/image", imageRouter);
 
 app.use(methodOverride("_method"));

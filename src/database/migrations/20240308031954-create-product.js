@@ -26,6 +26,9 @@ module.exports = {
       quantityAvailable: {
         type: Sequelize.INTEGER,
       },
+      sold: {
+        type: Sequelize.INTEGER,
+      },
       categoryId: {
         type: Sequelize.INTEGER,
         references: {

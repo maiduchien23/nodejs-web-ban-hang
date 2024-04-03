@@ -92,6 +92,37 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <td>Quản lý sản phẩm</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsRead"
+              value="products.read" <%= permissionUtils.get(permissions,
+              "products.read") && "checked" %> />
+              <label for="productsRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsAdd"
+              value="products.add" <%= permissionUtils.get(permissions,
+              "products.add") && "checked" %> />
+              <label for="productsAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsUpdate"
+              value="products.update" <%= permissionUtils.get(permissions,
+              "products.update") && "checked" %> />
+              <label for="productsUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsDelete"
+              value="products.delete" <%= permissionUtils.get(permissions,
+              "products.delete") && "checked" %> />
+              <label for="productsDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
   <div>
