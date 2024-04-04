@@ -78,27 +78,36 @@ module.exports = {
     },
     {
       header: "Tên sản phẩm",
-      key: "productName",
+      key: "name",
     },
+
     {
       header: "Mô tả",
       key: "description",
     },
-    {
-      header: "Giá gốc",
-      key: "originalPrice",
-    },
-    {
-      header: "Giá giảm",
-      key: "discountPrice",
-    },
+    // {
+    //   header: "Giá gốc",
+    //   key: "originalPrice",
+    // },
+    // {
+    //   header: "Giá giảm",
+    //   key: "discountPrice",
+    // },
     {
       header: "Giá",
       key: "price",
     },
     {
-      header: "Số lượng có sẵn",
-      key: "quantityAvailable",
+      header: "Danh mục",
+      key: "categoryId",
+    },
+    {
+      header: "Thương hiệu",
+      key: "brandId",
+    },
+    {
+      header: "Ngày tạo",
+      key: "createdAt",
     },
   ],
 };

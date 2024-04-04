@@ -59,7 +59,7 @@
 		<tbody>
 			<% products.forEach((product, index) => { %>
 			<tr>
-				<th><input type="checkbox" class="checkboxItem" value="<%= product.id %>"></th>
+				<th><input type="checkbox" class="checkboxItem" value="<%= products.id %>"></th>
 				<td><%= index + 1 %></td>
 				<td><%= product.name %></td>
 				<td><%= product.description %></td>
@@ -67,14 +67,18 @@
 				<td><%= product.Category.name %></td> 
 				<td><%= product.Brand.name %></td> 
 				<td><%= moment(product.createdAt).format("DD/MM/YYYY") %></td>
-				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.update')) { %>
-				<td>
-					<form action="/admin/products/edit/<%= product.id %>" method="get">
-						<button type="submit" class="btn btn-success"><i class="fas fa-user-cog"></i></button>
-					</form>
-				</td>
-				<% } %>
-				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.delete')) { %>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'users.update')) {%>
+					<td>
+						<form action="/admin/products/edit/<%= product.id %>"
+							method="get">
+							<button type="submit"
+								class="btn btn-info">
+								<i class="fas fa-edit"></i>
+							</button>
+						</form>
+					</td>
+					<% } %>
+				
 				<td>
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= product.id %>">
 						<i class="fas fa-trash-alt"></i>
@@ -102,7 +106,7 @@
 						</div>
 					</div>
 				</td>
-				<% } %>
+				
 			</tr>
 			<% }) %>
 		</tbody>

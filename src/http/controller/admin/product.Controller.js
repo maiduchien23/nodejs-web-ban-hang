@@ -173,87 +173,114 @@ module.exports = {
   },
 
   edit: async (req, res) => {
-    const { id } = req.params;
-    const userName = req.user.name;
-    const errors = req.flash("errors");
-    const title = "Sửa sản phẩm";
-    const success = req.flash("success");
+    try {
+      const { id } = req.params;
+      const product = await Product.findByPk(id);
+      if (!product) {
+        // Xử lý khi không tìm thấy sản phẩm
+        req.flash("errors", "Không tìm thấy sản phẩm");
+        return res.redirect("/admin/products");
+      }
 
-    const product = await Product.findByPk(id);
-    const categories = await Category.findAll();
-    const brands = await Brand.findAll();
+      const userName = req.user.name;
+      const errors = req.flash("errors");
+      const title = "Sửa sản phẩm";
+      const success = req.flash("success");
 
-    const permissionUser = await permissionUtils.roleUser(req);
+      const categories = await Category.findAll();
+      const brands = await Brand.findAll();
 
-    res.render("admin/product/edit", {
-      product,
-      title,
-      errors,
-      success,
-      categories,
-      validate,
-      permissionUser,
-      permissionUtils,
-      brands,
-      moduleName,
-      userName,
-    });
+      const permissionUser = await permissionUtils.roleUser(req);
+
+      res.render("admin/product/edit", {
+        product,
+        title,
+        errors,
+        success,
+        categories,
+        validate,
+        permissionUser,
+        permissionUtils,
+        brands,
+        moduleName,
+        userName,
+      });
+    } catch (error) {
+      console.log("Error editing product:", error);
+      req.flash(
+        "errors",
+        "Đã xảy ra lỗi khi chỉnh sửa sản phẩm. Vui lòng thử lại sau"
+      );
+      res.redirect("/admin/products");
+    }
   },
 
   update: async (req, res) => {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
 
-    const result = validationResult(req);
-    if (result.isEmpty()) {
+      const result = validationResult(req);
+      if (!result.isEmpty()) {
+        req.flash("errors", result.errors);
+        return res.redirect(`/admin/products/edit/${id}`);
+      }
+
       const {
         name,
         description,
-        originalPrice,
-        discountPrice,
+        // originalPrice,
+        // discountPrice,
         price,
-        quantityAvailable,
-        sold,
+        // quantityAvailable,
+        // sold,
         categoryId,
         brandId,
-        otherDetails,
-        group,
-        productUrl,
-        metaTitle,
-        metaDescription,
-        metaKeywords,
+        // otherDetails,
+        // group,
+        // url: imageUrl,
+        // metaTitle,
+        // metaDescription,
+        // metaKeywords,
       } = req.body;
 
-      await Product.update(
+      const updatedProduct = await Product.update(
         {
           name,
           description,
-          originalPrice,
-          discountPrice,
+          // originalPrice,
+          // discountPrice,
           price,
-          quantityAvailable,
-          sold,
+          // quantityAvailable,
+          // sold,
           categoryId,
           brandId,
-          otherDetails,
-          group,
-          url: productUrl,
-          metaTitle,
-          metaDescription,
-          metaKeywords,
+          // otherDetails,
+          // group,
+          // url: imageUrl,
+          // metaTitle,
+          // metaDescription,
+          // metaKeywords,
         },
         {
-          where: {
-            id: id,
-          },
+          where: { id: id },
         }
       );
 
+      if (!updatedProduct) {
+        req.flash("errors", "Không thể cập nhật sản phẩm");
+        return res.redirect(`/admin/products/edit/${id}`);
+      }
+
       req.flash("success", "Cập nhật sản phẩm thành công");
       return res.redirect(`/admin/products/edit/${id}`);
+    } catch (error) {
+      console.log("Error updating product:", error);
+      req.flash(
+        "errors",
+        "Đã xảy ra lỗi khi cập nhật sản phẩm. Vui lòng thử lại sau"
+      );
+      res.redirect(`/admin/products/edit/${id}`);
     }
-
-    req.flash("errors", result.errors);
-    res.redirect(`/admin/products/edit/${id}`);
   },
 
   destroy: async (req, res) => {
@@ -311,19 +338,9 @@ module.exports = {
         const product = await Product.create({
           name: data[i].column_1,
           description: data[i].column_2,
-          originalPrice: data[i].column_3,
-          discountPrice: data[i].column_4,
-          price: data[i].column_5,
-          quantityAvailable: data[i].column_6,
-          sold: data[i].column_7,
-          categoryId: data[i].column_8,
-          brandId: data[i].column_9,
-          otherDetails: data[i].column_10,
-          group: data[i].column_11,
-          url: data[i].column_12,
-          metaTitle: data[i].column_13,
-          metaDescription: data[i].column_14,
-          metaKeywords: data[i].column_15,
+          price: data[i].column_3,
+          categoryId: data[i].column_4,
+          brandId: data[i].column_5,
           createdBy: req.user.id,
           updatedBy: req.user.id,
         });

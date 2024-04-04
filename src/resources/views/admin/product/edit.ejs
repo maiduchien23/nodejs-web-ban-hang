@@ -1,31 +1,22 @@
 <div class="card-body">
-    <h5 class="card-title">Chỉnh sửa thông tin sản phẩm</h5>
-    <% if (error.length > 0) { %>
-        <div class="alert alert-danger" role="alert">
-            <% error.forEach(err => { %>
-                <p><%= err.msg %></p>
-            <% }) %>
-        </div>
-    <% } %>
-    <% if (success.length > 0) { %>
-        <div class="alert alert-success" role="alert">
-            <% success.forEach(msg => { %>
-                <p><%= msg %></p>
-            <% }) %>
-        </div>
-    <% } %>
+  
+    
     <form action="/admin/products/edit/<%= product.id %>" method="POST">
         <div class="form-group">
             <label for="name">Tên sản phẩm:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= product.name %>" placeholder="Nhập tên sản phẩm" required>
+            <span class="text-danger"><%= validate.getError(errors, "name") %></span>
         </div>
+        
         <div class="form-group">
             <label for="description">Mô tả:</label>
             <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả sản phẩm" required><%= product.description %></textarea>
+            <span class="text-danger"><%= validate.getError(errors, "description") %></span>
         </div>
         <div class="form-group">
             <label for="price">Giá:</label>
             <input type="number" class="form-control" id="price" name="price" value="<%= product.price %>" placeholder="Nhập giá sản phẩm" required>
+            <span class="text-danger"><%= validate.getError(errors, "price") %></span>
         </div>
         <div class="form-group">
             <label for="category">Chất liệu:</label>
@@ -34,6 +25,7 @@
                     <option value="<%= category.id %>" <%= product.categoryId === category.id ? 'selected' : '' %>><%= category.name %></option>
                 <% }) %>
             </select>
+            <span class="text-danger"><%= validate.getError(errors, "categoryId") %></span>
         </div>
         <div class="form-group">
             <label for="brand">Thương hiệu:</label>
@@ -42,7 +34,9 @@
                     <option value="<%= brand.id %>" <%= product.brandId === brand.id ? 'selected' : '' %>><%= brand.name %></option>
                 <% }) %>
             </select>
+            <span class="text-danger"><%= validate.getError(errors, "brandId") %></span>
         </div>
+        <input type="hidden" name="_method" value="PATCH" />
         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
     </form>
 </div>
