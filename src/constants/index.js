@@ -98,6 +98,10 @@ module.exports = {
       key: "price",
     },
     {
+      header: "Số lượng",
+      key: "quantityAvailable",
+    },
+    {
       header: "Danh mục",
       key: "categoryId",
     },

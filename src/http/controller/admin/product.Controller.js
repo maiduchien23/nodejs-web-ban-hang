@@ -78,6 +78,11 @@ module.exports = {
         {
           model: Brand,
         },
+        {
+          model: ProductImage,
+          attributes: ["imageUrl"],
+          limit: 1,
+        },
       ],
       where: filters,
       limit: +recordNumber,
@@ -96,6 +101,7 @@ module.exports = {
       permissionUtils,
       totalPage,
       page,
+      getPaginateUrl,
       recordNumber,
       userName,
     });
@@ -109,6 +115,7 @@ module.exports = {
 
     const categories = await Category.findAll();
     const brands = await Brand.findAll();
+    const productImages = await ProductImage.findAll();
 
     const permissionUser = await permissionUtils.roleUser(req);
 
@@ -117,6 +124,7 @@ module.exports = {
       moduleName,
       errors,
       success,
+      productImages,
       validate,
       permissionUser,
       permissionUtils,
@@ -136,33 +144,39 @@ module.exports = {
         discountPrice,
         price,
         quantityAvailable,
-        sold,
         categoryId,
         brandId,
         otherDetails,
         group,
-        productUrl,
+        url,
         metaTitle,
         metaDescription,
         metaKeywords,
       } = req.body;
 
-      await Product.create({
+      const imageUrl = req.file ? `/uploads/file/${req.file.filename}` : null;
+
+      const updateProduct = await Product.create({
         name,
         description,
         originalPrice,
         discountPrice,
         price,
         quantityAvailable,
-        sold,
         categoryId,
         brandId,
         otherDetails,
         group,
-        url: productUrl,
+        url,
         metaTitle,
         metaDescription,
         metaKeywords,
+        imageUrl,
+      });
+
+      await ProductImage.create({
+        productId: updateProduct.id,
+        imageUrl: imageUrl,
       });
 
       req.flash("success", "Thêm sản phẩm thành công");
@@ -189,6 +203,7 @@ module.exports = {
 
       const categories = await Category.findAll();
       const brands = await Brand.findAll();
+      const productImages = product.ProductImages;
 
       const permissionUser = await permissionUtils.roleUser(req);
 
@@ -201,6 +216,7 @@ module.exports = {
         validate,
         permissionUser,
         permissionUtils,
+        productImages,
         brands,
         moduleName,
         userName,
@@ -228,38 +244,47 @@ module.exports = {
       const {
         name,
         description,
-        // originalPrice,
-        // discountPrice,
+        originalPrice,
+        discountPrice,
         price,
-        // quantityAvailable,
-        // sold,
+        quantityAvailable,
         categoryId,
         brandId,
-        // otherDetails,
-        // group,
-        // url: imageUrl,
-        // metaTitle,
-        // metaDescription,
-        // metaKeywords,
+        otherDetails,
+        group,
+        url,
+        metaTitle,
+        metaDescription,
+        metaKeywords,
       } = req.body;
+
+      let imageUrl = null;
+      if (req.file) {
+        imageUrl = `/uploads/file/${req.file.filename}`;
+
+        const product = await Product.findByPk(id);
+        if (product && product.imageUrl) {
+          fs.unlinkSync(`/public/uploads/file${product.imageUrl}`);
+        }
+      }
 
       const updatedProduct = await Product.update(
         {
           name,
           description,
-          // originalPrice,
-          // discountPrice,
+          originalPrice,
+          discountPrice,
           price,
-          // quantityAvailable,
-          // sold,
+          quantityAvailable,
           categoryId,
           brandId,
-          // otherDetails,
-          // group,
-          // url: imageUrl,
-          // metaTitle,
-          // metaDescription,
-          // metaKeywords,
+          otherDetails,
+          group,
+          url,
+          metaTitle,
+          metaDescription,
+          metaKeywords,
+          imageUrl,
         },
         {
           where: { id: id },
@@ -331,16 +356,24 @@ module.exports = {
   handleImport: async (req, res) => {
     const file = req.file;
 
+    // Kiểm tra xem tệp đã được xuất trước đó hay không
+    if (!file.originalname.includes("product_admin")) {
+      req.flash("errors", [
+        { msg: "Tệp không hợp lệ. Hãy chọn tệp đã xuất từ hệ thống." },
+      ]);
+      return res.redirect("/admin/products/import");
+    }
     try {
       const data = await importFile(file.path);
 
       for (let i = 0; i < data.length; i++) {
-        const product = await Product.create({
+        await Product.create({
           name: data[i].column_1,
           description: data[i].column_2,
           price: data[i].column_3,
-          categoryId: data[i].column_4,
-          brandId: data[i].column_5,
+          quantityAvailable: data[i].column_4,
+          categoryId: data[i].column_5,
+          brandId: data[i].column_6,
           createdBy: req.user.id,
           updatedBy: req.user.id,
         });

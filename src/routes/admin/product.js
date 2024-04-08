@@ -28,10 +28,20 @@ router.get("/", ProductController.index);
 router.post("/", ProductController.index);
 
 router.get("/add", ProductController.add);
-router.post("/add", ProductValidate(), ProductController.store);
+router.post(
+  "/add",
+  upload.single("image"),
+  ProductValidate(),
+  ProductController.store
+);
 
 router.get("/edit/:id", ProductController.edit);
-router.patch("/edit/:id", ProductUpdateValidate(), ProductController.update);
+router.patch(
+  "/edit/:id",
+
+  ProductUpdateValidate(),
+  ProductController.update
+);
 
 router.delete("/delete/:id", ProductController.destroy);
 

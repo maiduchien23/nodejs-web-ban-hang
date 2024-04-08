@@ -85,13 +85,73 @@
 					</ul>
 				</li>
 				<% } %>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'categories.read')) {%>
+				<li class="nav-item <%= moduleName === "Danh mục" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "Danh mục" ? "active" : "" %>">
+						<i class="fas fa-tag"></i>
+						<p>
+							Quản lý danh mục
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="/admin/categories"
+								class="nav-link <%= title === "Danh sách danh mục" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+						<% if(permissionUtils.getPermissionUser(permissionUser, 'categories.add')) {%>
+						<li class="nav-item">
+							<a href="/admin/categories/add"
+								class="nav-link <%= title === "Thêm danh mục" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						<% } %>
+					</ul>
+				</li>
+				<% } %>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'brands.read')) {%>
+				<li class="nav-item <%= moduleName === "Thương hiệu" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "Thương hiệu" ? "active" : "" %>">
+						<i class="fas fa-tag"></i>
+						<p>
+							Quản lý thương hiệu
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="/admin/brands"
+								class="nav-link <%= title === "Danh sách thương hiệu" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+						<% if(permissionUtils.getPermissionUser(permissionUser, 'brands.add')) {%>
+						<li class="nav-item">
+							<a href="/admin/brands/add"
+								class="nav-link <%= title === "Thêm thương hiệu" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						<% } %>
+					</ul>
+				</li>
+				<% } %>
 				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.read')) {%>
 				<li class="nav-item <%= moduleName === "Sản phẩm" ? "menu-is-opening menu-open" : "" %>">
 					<a href="#"
 						class="nav-link <%= moduleName === "Sản phẩm" ? "active" : "" %>">
 						<i class="fas fa-shopping-cart"></i>
 						<p>
-							Danh mục sản phẩm
+							Quản lý sản phẩm
 							<i class="fas fa-angle-left right"></i>
 						</p>
 					</a>

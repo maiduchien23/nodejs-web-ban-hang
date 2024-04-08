@@ -16,6 +16,8 @@ const productUpdateValidate = () => {
     body("price", "Giá không được để trống").notEmpty(),
     body("price", "Giá phải là số").isNumeric(),
 
+    body("quantityAvailable", "Số lượng phải là số").isNumeric(),
+
     body("categoryId", "Danh mục không được để trống").notEmpty(),
     body("categoryId", "Danh mục phải là số").isNumeric(),
     body("brandId", "Thương hiệu không được để trống").notEmpty(),

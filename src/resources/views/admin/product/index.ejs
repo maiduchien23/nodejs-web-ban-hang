@@ -15,7 +15,7 @@
 	</div>
 
 	<!-- Thêm phần tìm kiếm -->
-	<section class="justify-content-between content mb-3">
+	<section class="justify-content-between content mb-3" >
 		<div class="container-fluid">
 			<div class="row">
 				<div class="d-flex align-items-center col-md-8 offset-md-2 ml-0 p-0">
@@ -40,15 +40,17 @@
 	</section>
 
 	<!-- Thêm bảng danh sách sản phẩm -->
-	<table class="table table-bordered text-center">
+	<table class="table table-bordered text-center" >
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="checkboxAll"></th>
 				<th style="width: 10px">#</th>
 				<th>Tên sản phẩm</th>
+				<th>Ảnh</th>				
 				<th>Mô tả</th>
-				<th>Giá</th>
-				<th>Chất liệu</th>
+				<th>Giá tiền</th>
+				<th>Số Lượng</th>
+				<th>Danh mục</th>
 				<th>Thương hiệu</th>
 				<th>Ngày tạo</th>
 				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.update') || permissionUtils.getPermissionUser(permissionUser, 'products.delete')) { %>
@@ -62,12 +64,20 @@
 				<th><input type="checkbox" class="checkboxItem" value="<%= products.id %>"></th>
 				<td><%= index + 1 %></td>
 				<td><%= product.name %></td>
+				<td>
+					<% if (product.ProductImages && product.ProductImages.length > 0) { %>
+						<img src="<%= product.ProductImages[0].imageUrl %>" alt="Product Image" width="200 ">
+					<% } else { %>
+						<img src="" alt="No Image" width="100">
+					<% } %>
+				</td>
 				<td><%= product.description %></td>
-				<td><%= product.price %></td>
+				<td><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price) %></td>
+				<td><%= product.quantityAvailable %></td>
 				<td><%= product.Category.name %></td> 
 				<td><%= product.Brand.name %></td> 
 				<td><%= moment(product.createdAt).format("DD/MM/YYYY") %></td>
-				<% if(permissionUtils.getPermissionUser(permissionUser, 'users.update')) {%>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.update')) {%>
 					<td>
 						<form action="/admin/products/edit/<%= product.id %>"
 							method="get">
@@ -78,7 +88,7 @@
 						</form>
 					</td>
 					<% } %>
-				
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.delete')) {%>
 				<td>
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= product.id %>">
 						<i class="fas fa-trash-alt"></i>
@@ -106,13 +116,13 @@
 						</div>
 					</div>
 				</td>
-				
+				<% } %>
 			</tr>
 			<% }) %>
 		</tbody>
 	</table>
 	<div class="d-flex mt-3 align-items-center justify-content-between">
-		<!-- Thêm phần chọn số lượng bản ghi hiển thị -->
+		<!-- Chọn số lượng bản ghi hiển thị -->
 		<form action="" method="post">
 			<div class="form-group">
 				<div class="d-flex align-items-center" style="width: 170px">
@@ -126,7 +136,7 @@
 				</div>
 			</div>
 		</form>
-		<!-- Thêm phần phân trang -->
+		<!-- phân trang -->
 		<%- include("../../subviews/paginate", {totalPage, page}) %>
 	</div>
 </div>

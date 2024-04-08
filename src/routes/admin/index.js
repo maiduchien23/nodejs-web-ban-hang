@@ -10,6 +10,8 @@ const profileRouter = require("./profile");
 const userRouter = require("./user");
 const roleRouter = require("./role");
 const productRouter = require("./product");
+const categoryRouter = require("./category");
+const brandRouter = require("./brand");
 
 router.get("/", DashboardController.index);
 router.get("/changePassword", ProfileController.changePassword);
@@ -23,5 +25,7 @@ router.use("/profile", profileRouter);
 router.use("/users", userRouter);
 router.use("/roles", roleRouter);
 router.use("/products", productRouter);
+router.use("/categories", categoryRouter);
+router.use("/brands", brandRouter);
 
 module.exports = router;

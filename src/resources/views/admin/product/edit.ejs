@@ -1,13 +1,28 @@
 <div class="card-body">
-  
-    
-    <form action="/admin/products/edit/<%= product.id %>" method="POST">
+    <form action="/admin/products/edit/<%= product.id %>" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Tên sản phẩm:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= product.name %>" placeholder="Nhập tên sản phẩm" required>
             <span class="text-danger"><%= validate.getError(errors, "name") %></span>
         </div>
+        <div class="form-group">
+            <label for="image">Ảnh hiện tại:</label>
+            <br>
+            <% if (productImages && productImages.length > 0) { %>
+                <% productImages.forEach(image => { %>
+                    <img src="<%= image.imageUrl %>" alt="Product Image" width="200">
+                <% }) %>
+            <% } else { %>
+                <img src="" alt="No Image" width="100">
+            <% } %>
         
+        </div>
+        <div class="form-group">
+            <label for="newImage">Tải lên ảnh mới:</label>
+            <input type="file" class="form-control-file" id="newImage" name="newImage" onchange="previewImage(event)">
+            <img id="preview" src="#" alt="Preview Image" style="max-width: 200px; display: none;">
+            <span class="text-danger"><%= validate.getError(errors, "imageUrl") %></span>
+        </div>
         <div class="form-group">
             <label for="description">Mô tả:</label>
             <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả sản phẩm" required><%= product.description %></textarea>
@@ -15,11 +30,16 @@
         </div>
         <div class="form-group">
             <label for="price">Giá:</label>
-            <input type="number" class="form-control" id="price" name="price" value="<%= product.price %>" placeholder="Nhập giá sản phẩm" required>
+            <input type="number" class="form-control" id="price" name="price" value="<%= product.price %>" placeholder="Nhập giá sản phẩm" required >
             <span class="text-danger"><%= validate.getError(errors, "price") %></span>
         </div>
         <div class="form-group">
-            <label for="category">Chất liệu:</label>
+            <label for = "quantityAvailable">Số lượng:</label>
+            <input type="number" class="form-control" id="quantityAvailable" name="quantityAvailable" value="<%= product.quantityAvailable %>" placeholder="Nhập số lượng" required/>
+            <span class="text-danger"><%= validate.getError(errors, "quantityAvailable") %></span>
+        </div>
+        <div class="form-group">
+            <label for="category">Danh mục:</label>
             <select class="form-control" id="category" name="categoryId" required>
                 <% categories.forEach(category => { %>
                     <option value="<%= category.id %>" <%= product.categoryId === category.id ? 'selected' : '' %>><%= category.name %></option>
@@ -39,4 +59,19 @@
         <input type="hidden" name="_method" value="PATCH" />
         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
     </form>
+    <script>
+       
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                preview.src = event.target.result;
+                preview.style.display = 'block'; 
+            }
+
+            reader.readAsDataURL(file);
+        }
+    </script>
 </div>

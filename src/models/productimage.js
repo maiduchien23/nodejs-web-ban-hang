@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       productId: DataTypes.INTEGER,
-      url: DataTypes.STRING(255),
+      imageUrl: DataTypes.STRING(255),
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
