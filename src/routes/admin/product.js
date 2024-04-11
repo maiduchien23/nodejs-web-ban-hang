@@ -36,9 +36,9 @@ router.post(
 );
 
 router.get("/edit/:id", ProductController.edit);
-router.patch(
+router.post(
   "/edit/:id",
-
+  upload.single("newImage"),
   ProductUpdateValidate(),
   ProductController.update
 );

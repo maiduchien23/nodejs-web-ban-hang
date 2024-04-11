@@ -1,0 +1,19 @@
+<div class="card-body">
+  <form action="/admin/brands/edit/<%= brand.id %>" method="post">
+    <div class="form-group">
+      <label for="name">Tên thuơng hiệu:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Nhập tên thương hiệu"
+        value="<%= brand.name %>"
+        required
+      />
+    </div>
+
+    <input type="hidden" name="_method" value="PATCH" />
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+  </form>
+</div>

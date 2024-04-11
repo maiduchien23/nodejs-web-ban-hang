@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.TEXT,
       originalPrice: DataTypes.DECIMAL,
       discountPrice: DataTypes.DECIMAL,
-      price: DataTypes.DECIMAL,
+      price: DataTypes.DECIMAL(10, 2),
       quantityAvailable: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
       brandId: DataTypes.INTEGER,

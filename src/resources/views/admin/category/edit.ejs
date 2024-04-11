@@ -1,0 +1,30 @@
+<div class="card-body">
+  <form action="/admin/categories/edit/<%= category.id %>" method="post">
+    <div class="form-group">
+      <label for="name">Tên danh mục:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Nhập tên danh mục"
+        value="<%= category.name %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="priority">Level:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="priority"
+        name="priority"
+        placeholder="Nhập ưu tiên cho danh mục"
+        value="<%= category.priority %>"
+        required
+      />
+    </div>
+    <input type="hidden" name="_method" value="PATCH" />
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+  </form>
+</div>

@@ -15,8 +15,22 @@ const productUpdateValidate = () => {
 
     body("price", "Giá không được để trống").notEmpty(),
     body("price", "Giá phải là số").isNumeric(),
+    body("price", "Giá không được là số âm").custom((value) => {
+      if (value < 0) {
+        throw new Error("Giá không được là số âm");
+      }
+      return true;
+    }),
 
     body("quantityAvailable", "Số lượng phải là số").isNumeric(),
+    body("quantityAvailable", "Số lượng không được là số âm").custom(
+      (value) => {
+        if (value < 0) {
+          throw new Error("Số lượng không được là số âm");
+        }
+        return true;
+      }
+    ),
 
     body("categoryId", "Danh mục không được để trống").notEmpty(),
     body("categoryId", "Danh mục phải là số").isNumeric(),
@@ -24,7 +38,7 @@ const productUpdateValidate = () => {
     body("brandId", "Thương hiệu phải là số").isNumeric(),
   ];
 
-  // Check if middleware is an array of functions
+  // Kiểm tra xem middleware có phải là mảng các hàm không
   if (
     !Array.isArray(middleware) ||
     middleware.some((fn) => typeof fn !== "function")
