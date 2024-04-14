@@ -31,7 +31,7 @@
     "method-override": "^3.0.0",
     "mkcert": "^3.2.0",
     "mongoose": "^8.2.2",
-    "morgan": "~1.9.1",
+    "morgan": "~1.10.0",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.2",
