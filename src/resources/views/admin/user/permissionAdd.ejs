@@ -100,6 +100,41 @@
         </td>
       </tr>
       <tr>
+        <td>Quản lý sản phẩm</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsRead"
+              value="products.read" <%=
+              permissionUtils.getPermissionUser(permissionUser, "products.read")
+              && "checked" %> />
+              <label for="productsRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsAdd"
+              value="products.add" <%=
+              permissionUtils.getPermissionUser(permissionUser, "products.add")
+              && "checked" %> />
+              <label for="productsAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsUpdate"
+              value="products.update" <%=
+              permissionUtils.getPermissionUser(permissionUser,
+              "products.update") && "checked" %> />
+              <label for="productsUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productsDelete"
+              value="products.delete" <%=
+              permissionUtils.getPermissionUser(permissionUser,
+              "products.delete") && "checked" %> />
+              <label for="productsDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
         <td>Quản lý danh mục</td>
         <td>
           <div class="row">
@@ -165,6 +200,111 @@
               permissionUtils.getPermissionUser(permissionUser,
               "categories.delete") && "checked" %> />
               <label for="categoriesDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Quản lý màu</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsRead"
+              value="colors.read" <%=
+              permissionUtils.getPermissionUser(permissionUser, "colors.read")
+              && "checked" %> />
+              <label for="colorsRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsAdd"
+              value="colors.add" <%=
+              permissionUtils.getPermissionUser(permissionUser, "colors.add") &&
+              "checked" %> />
+              <label for="colorsAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="rolesUpdate"
+              value="colors.update" <%=
+              permissionUtils.getPermissionUser(permissionUser, "colors.update")
+              && "checked" %> />
+              <label for="colorsUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsDelete"
+              value="colors.delete" <%=
+              permissionUtils.getPermissionUser(permissionUser, "colors.delete")
+              && "checked" %> />
+              <label for="colorsDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Quản lý size</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesRead"
+              value="sizes.read" <%=
+              permissionUtils.getPermissionUser(permissionUser, "sizes.read") &&
+              "checked" %> />
+              <label for="sizesRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesAdd"
+              value="sizes.add" <%=
+              permissionUtils.getPermissionUser(permissionUser, "sizes.add") &&
+              "checked" %> />
+              <label for="sizesAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="rolesUpdate"
+              value="sizes.update" <%=
+              permissionUtils.getPermissionUser(permissionUser, "sizes.update")
+              && "checked" %> />
+              <label for="sizesUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesDelete"
+              value="sizes.delete" <%=
+              permissionUtils.getPermissionUser(permissionUser, "sizes.delete")
+              && "checked" %> />
+              <label for="sizesDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Quản lý biến thể sản phẩm</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="productVariantsRead"
+              value="productVariants.read" <%=
+              permissionUtils.getPermissionUser(permissionUser,
+              "productVariants.read") && "checked" %> />
+              <label for="productVariantsRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productVariantsAdd"
+              value="productVariants.add" <%=
+              permissionUtils.getPermissionUser(permissionUser,
+              "productVariants.add") && "checked" %> />
+              <label for="productVariantsAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission"
+              id="productVariantsUpdate" value="productVariants.update" <%=
+              permissionUtils.getPermissionUser(permissionUser,
+              "productVariants.update") && "checked" %> />
+              <label for="productVariantsUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission"
+              id="productVariantsDelete" value="productVariants.delete" <%=
+              permissionUtils.getPermissionUser(permissionUser,
+              "productVariants.delete") && "checked" %> />
+              <label for="productVariantsDelete">Xóa</label>
             </div>
           </div>
         </td>

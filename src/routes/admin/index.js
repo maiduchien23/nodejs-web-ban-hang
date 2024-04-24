@@ -12,6 +12,9 @@ const roleRouter = require("./role");
 const productRouter = require("./product");
 const categoryRouter = require("./category");
 const brandRouter = require("./brand");
+const colorRouter = require("./color");
+const sizeRouter = require("./size");
+const productVariantRouter = require("./productVariant");
 
 router.get("/", DashboardController.index);
 router.get("/changePassword", ProfileController.changePassword);
@@ -27,5 +30,8 @@ router.use("/roles", roleRouter);
 router.use("/products", productRouter);
 router.use("/categories", categoryRouter);
 router.use("/brands", brandRouter);
+router.use("/colors", colorRouter);
+router.use("/sizes", sizeRouter);
+router.use("/productVariants", productVariantRouter);
 
 module.exports = router;

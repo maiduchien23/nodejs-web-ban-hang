@@ -1,0 +1,19 @@
+<div class="card-body">
+  <form action="/admin/colors/edit/<%= color.id %>" method="post">
+    <div class="form-group">
+      <label for="name">Tên màu:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Nhập tên màu"
+        value="<%= color.name %>"
+        required
+      />
+    </div>
+
+    <input type="hidden" name="_method" value="patch" />
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+  </form>
+</div>

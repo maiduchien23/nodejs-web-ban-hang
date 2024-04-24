@@ -1,5 +1,7 @@
 <div class="card-body">
-    <form action="/admin/products/edit/<%= product.id %>" method="post" enctype="multipart/form-data" >
+    <!-- Form sửa thông tin sản phẩm -->
+    <form action="/admin/products/edit/<%= product.id %>" method="post" enctype="multipart/form-data">
+        <!-- Các trường thông tin sản phẩm -->
         <div class="form-group">
             <label for="name">Tên sản phẩm:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= product.name %>" placeholder="Nhập tên sản phẩm" required>
@@ -55,21 +57,24 @@
             </select>
             <span class="text-danger"><%= validate.getError(errors, "brandId") %></span>
         </div>
-        
+        <input type="hidden" name="_method" value="PATCH" />
         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
     </form>
+</div>
     <script>
         function previewNewImage(event) {
             const preview = document.getElementById('preview');
             const file = event.target.files[0];
             const reader = new FileReader();
-
+    
             reader.onload = function(event) {
                 preview.src = event.target.result;
                 preview.style.display = 'block'; 
             }
-
+    
             reader.readAsDataURL(file);
         }
+    
+        
     </script>
-</div>
+

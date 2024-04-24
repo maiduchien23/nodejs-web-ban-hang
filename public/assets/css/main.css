@@ -15720,3 +15720,10 @@ h1 {
   border-radius: 3px; /* Round corners slightly on hover */
   cursor: pointer; /* Indicate clickable behavior */
 }
+
+.table-wrapper {
+  border:3px solid #00ff00;  
+  max-height: 300px;
+  overflow-x:hidden;
+  overflow-y:auto;
+}

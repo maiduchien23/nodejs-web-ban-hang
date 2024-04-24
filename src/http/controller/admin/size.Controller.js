@@ -2,14 +2,14 @@ const { Op } = require("sequelize");
 const { validationResult } = require("express-validator");
 const model = require("../../../models/index");
 const { getPaginateUrl } = require("../../../utils/url");
-const Color = model.ProductColor;
+const Size = model.ProductSize;
 const permissionUtils = require("../../../utils/permissionUtils");
 
-const moduleName = "Màu";
+const moduleName = "Kích thước ";
 
 module.exports = {
   index: async (req, res) => {
-    const title = "Danh sách màu";
+    const title = "Danh sách kích thước";
     const userName = req.user.name;
     const filters = {};
 
@@ -29,7 +29,7 @@ module.exports = {
     }
 
     // Get total count of records
-    const totalCountObj = await Color.findAndCountAll({
+    const totalCountObj = await Size.findAndCountAll({
       where: filters,
     });
     const totalCount = totalCountObj.count;
@@ -43,7 +43,7 @@ module.exports = {
     }
 
     const offset = (page - 1) * recordNumber;
-    const colors = await Color.findAll({
+    const sizes = await Size.findAll({
       where: filters,
       limit: +recordNumber,
       offset: offset,
@@ -51,9 +51,9 @@ module.exports = {
 
     const permissionUser = await permissionUtils.roleUser(req);
 
-    res.render("admin/color/index", {
+    res.render("admin/size/index", {
       req,
-      colors,
+      sizes,
       title,
       moduleName,
       totalPage,
@@ -68,14 +68,14 @@ module.exports = {
   },
 
   add: async (req, res) => {
-    const title = "Thêm màu";
+    const title = "Thêm kích thước";
     const userName = req.user.name;
     const errors = req.flash("errors");
     const success = req.flash("success");
 
     const permissionUser = await permissionUtils.roleUser(req);
 
-    res.render("admin/color/add", {
+    res.render("admin/size/add", {
       title,
       errors,
       moduleName,
@@ -91,26 +91,26 @@ module.exports = {
     if (result.isEmpty()) {
       const { name } = req.body;
 
-      await Color.create({
+      await Size.create({
         name: name,
       });
 
-      req.flash("success", "Thêm màu thành công");
+      req.flash("success", "Thêm kích thước thành công");
       return res.redirect("/admin/categories");
     }
 
     req.flash("errors", result.errors);
-    res.redirect("/admin/colors/add");
+    res.redirect("/admin/sizes/add");
   },
 
   edit: async (req, res) => {
     const { id } = req.params;
     const userName = req.user.name;
     const errors = req.flash("errors");
-    const title = "Sửa màu";
+    const title = "Sửa kích thước";
     const success = req.flash("success");
 
-    const color = await Color.findOne({
+    const size = await Size.findOne({
       where: {
         id: id,
       },
@@ -118,8 +118,8 @@ module.exports = {
 
     const permissionUser = await permissionUtils.roleUser(req);
 
-    res.render("admin/color/edit", {
-      color,
+    res.render("admin/size/edit", {
+      size,
       title,
       errors,
       permissionUser,
@@ -136,7 +136,7 @@ module.exports = {
 
     const result = validationResult(req);
     if (result.isEmpty()) {
-      await Color.update(
+      await Size.update(
         {
           name: name,
         },
@@ -146,22 +146,22 @@ module.exports = {
           },
         }
       );
-      req.flash("success", "Cập nhập màu thành công");
-      return res.redirect(`/admin/colors/edit/${id}`);
+      req.flash("success", "Cập nhập kích thước thành công");
+      return res.redirect(`/admin/sizes/edit/${id}`);
     }
 
     req.flash("errors", result.errors);
-    res.redirect(`/admin/colors/edit/${id}`);
+    res.redirect(`/admin/sizes/edit/${id}`);
   },
 
   destroy: async (req, res) => {
     const { id } = req.params;
-    await Color.destroy({
+    await Size.destroy({
       where: {
         id: id,
       },
     });
-    req.flash("success", "Xóa màu thành công");
+    req.flash("success", "Xóa kích thước thành công");
     res.redirect("/admin/categories");
   },
 };

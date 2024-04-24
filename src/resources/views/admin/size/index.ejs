@@ -1,58 +1,67 @@
 <div class="card-body">
-   
-
-    <% function renderTable(title, items, permission, addLink, editLinkPrefix, deleteLinkPrefix) { %>
-    <% if(permissionUtils.getPermissionUser(permissionUser, permission.add)) { %>
-    <table class="table table-bordered text-center">
-        <h3><%= title %></h3>
-        <div class="text-left mb-3">
-            <form action="<%= addLink %>" method="get">
-                <button type="submit" class="btn btn-primary">Thêm mới</button>
-            </form>
+    <section class="justify-content-between content mb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="d-flex align-items-center col-md-8 offset-md-2 ml-0 p-0">
+                    <form action="" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-md" name="keyword" placeholder="Nhập từ tìm kiếm">
+                            <div class="input-group-append" width="38px" height="38px">
+                                <button type="submit" class="btn btn-md btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <table class="table table-bordered text-center">
         <thead>
             <tr>
                 <th style="width: 20px">#</th>
-                <th style="width: 40%">Tên</th>
-                <% if(permissionUtils.getPermissionUser(permissionUser, permission.update) || permissionUtils.getPermissionUser(permissionUser, permission.delete)) { %>
+                <th style="width: 40%">Tên kích thước</th>               
+               <% if(permissionUtils.getPermissionUser(permissionUser, 'sizes.update') || permissionUtils.getPermissionUser(permissionUser, 'sizes.delete')) { %>
                 <th colspan="2">Chức năng</th>
                 <% } %>
             </tr>
         </thead>
         <tbody>
-            <% items.forEach((item, index) => { %>
+            <% sizes.forEach((size, index) => { %>
             <tr>
                 <td><%= index + 1 %></td>
-                <td><%= item.name %></td>
-                <% if(permissionUtils.getPermissionUser(permissionUser, permission.update)) { %>
+                <td><%= size.name %></td>             
+                <% if(permissionUtils.getPermissionUser(permissionUser, 'sizes.update')) { %>
                 <td>
-                    <form action="<%= editLinkPrefix + item.id %>" method="get">
+                    <form action="/admin/sizes/edit/<%= size.id %>" method="get">
                         <button type="submit" class="btn btn-info">
                             <i class="fas fa-edit"></i>
                         </button>
                     </form>
                 </td>
                 <% } %>
-                <% if(permissionUtils.getPermissionUser(permissionUser, permission.delete)) { %>
+                <% if(permissionUtils.getPermissionUser(permissionUser, 'sizes.delete')) { %>
                 <td>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= item.id %>">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= size.id %>">
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                    <div class="modal fade" id="modal-danger-<%= item.id %>">
+                    <div class="modal fade" id="modal-danger-<%= size.id %>">
                         <div class="modal-dialog">
                             <div class="modal-content bg-danger">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Xóa <%= title.toLowerCase() %></h4>
+                                    <h4 class="modal-title">Xóa danh mục</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Bạn có chắc chắn muốn xóa <%= title.toLowerCase() %> này?</p>
+                                    <p>Bạn có chắc xóa danh mục này?</p>
                                 </div>
                                 <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Không</button>
-                                    <form action="<%= deleteLinkPrefix + item.id %>" method="post">
+                                    <form action="/admin/sizes/delete/<%= size.id %>" method="post">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-outline-light">Có</button>
                                     </form>
@@ -60,22 +69,12 @@
                             </div>
                         </div>
                     </div>
-                    
                 </td>
                 <% } %>
             </tr>
             <% }) %>
         </tbody>
     </table>
-    <% } %>
-    <% } %>
-
-    <% renderTable("Tất cả danh mục", categories, { add: 'categories.add', update: 'categories.update', delete: 'categories.delete' }, "/admin/categories/add", "/admin/categories/edit/", "/admin/categories/delete/") %>
-    <% renderTable("Tất cả thương hiệu", brands, { add: 'brands.add', update: 'brands.update', delete: 'brands.delete' }, "/admin/brands/add", "/admin/brands/edit/", "/admin/brands/delete/") %>
-    <% renderTable("Tất cả màu", colors, { add: 'colors.add', update: 'colors.update', delete: 'colors.delete' }, "/admin/colors/add", "/admin/colors/edit/", "/admin/colors/delete/") %>
-    <% renderTable("Tất cả size", sizes, { add: 'sizes.add', update: 'sizes.update', delete: 'sizes.delete' }, "/admin/sizes/add", "/admin/sizes/edit/", "/admin/sizes/delete/") %>
-
-
     <div class="d-flex mt-3 align-items-center justify-content-between">
         <form action="" method="post">
             <div class="form-group">

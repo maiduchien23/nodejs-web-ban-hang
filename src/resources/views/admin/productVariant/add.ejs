@@ -1,0 +1,54 @@
+<div class="card-body">
+  <form action="/admin/productVariants/add" method="POST">
+    <div class="form-group">
+      <label for="name">Biến thể sản phẩm:</label>
+      <select class="form-control" id="product" name="productId" required>
+        <option value="0">Chọn sản phẩm</option>
+        <% products.forEach(product => { %>
+        <option value="<%= product.id %>"><%= product.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="color">Màu sắc:</label>
+      <select class="form-control" id="color" name="colorId" required>
+        <option value="0">Chọn màu</option>
+        <% colors.forEach(color => { %>
+        <option value="<%= color.id %>"><%= color.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="color">Size:</label>
+      <select class="form-control" id="size" name="sizeId" required>
+        <option value="0">Chọn size</option>
+        <% sizes.forEach(size => { %>
+        <option value="<%= size.id %>"><%= size.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="price">Giá:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        name="price"
+        placeholder="Nhập giá sản phẩm"
+        required
+      />
+      <div class="form-group">
+        <label for="quantityAvailable">Số lượng:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="quantityAvailable"
+          name="quantityAvailable"
+          placeholder="Nhập số lượng"
+          required
+        />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+  </form>
+</div>

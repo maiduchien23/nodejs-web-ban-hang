@@ -14,6 +14,8 @@ const {
   Brand,
   ProductVariant,
   ProductImage,
+  ProductColor,
+  ProductSize,
   ProductAttribute,
   Permission,
 } = models;
@@ -203,7 +205,14 @@ module.exports = {
 
       const categories = await Category.findAll();
       const brands = await Brand.findAll();
-      const productImages = product.ProductImages;
+      const productImages = await ProductImage.findAll({
+        where: {
+          productId: id,
+        },
+      });
+      const productVariant = await ProductVariant.findByPk(id);
+      const colors = await ProductColor.findAll();
+      const sizes = await ProductSize.findAll();
 
       const permissionUser = await permissionUtils.roleUser(req);
 
@@ -220,6 +229,9 @@ module.exports = {
         brands,
         moduleName,
         userName,
+        productVariant,
+        colors,
+        sizes,
       });
     } catch (error) {
       console.log("Error editing product:", error);
@@ -258,14 +270,31 @@ module.exports = {
         metaKeywords,
       } = req.body;
 
-      let imageUrl = null;
-      if (req.file) {
-        imageUrl = `/uploads/file/${req.file.filename}`;
+      const productImages = await ProductImage.findAll({
+        where: {
+          productId: id,
+        },
+      });
 
-        const product = await Product.findByPk(id);
-        if (product && product.imageUrl) {
-          fs.unlinkSync(`/public/uploads/file${product.imageUrl}`);
+      let imageUrl = null;
+
+      if (req.file) {
+        const newImageUrl = `/uploads/file/${req.file.filename}`;
+
+        if (productImages.length > 0) {
+          await ProductImage.destroy({
+            where: {
+              productId: id,
+            },
+          });
         }
+
+        await ProductImage.create({
+          productId: id,
+          imageUrl: newImageUrl,
+        });
+
+        productImages[0] = { imageUrl: newImageUrl };
       }
 
       const updatedProduct = await Product.update(
@@ -285,6 +314,7 @@ module.exports = {
           metaDescription,
           metaKeywords,
           imageUrl,
+          productImages,
         },
         {
           where: { id: id },

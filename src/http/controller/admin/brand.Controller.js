@@ -96,8 +96,8 @@ module.exports = {
         name: name,
       });
 
-      req.flash("success", "Thêm danh mục thành công");
-      return res.redirect("/admin/brands");
+      req.flash("success", "Thêm thương hiệu thành công");
+      return res.redirect("/admin/categories");
     }
 
     req.flash("errors", result.errors);
@@ -147,7 +147,7 @@ module.exports = {
           },
         }
       );
-      req.flash("success", "Cập nhập danh mục thành công");
+      req.flash("success", "Cập nhập thương hiệu thành công");
       return res.redirect(`/admin/brands/edit/${id}`);
     }
 
@@ -162,7 +162,7 @@ module.exports = {
         id: id,
       },
     });
-    req.flash("success", "Xóa danh mục thành công");
-    res.redirect("/admin/brands");
+    req.flash("success", "Xóa thương hiệu thành công");
+    res.redirect("/admin/categories");
   },
 };

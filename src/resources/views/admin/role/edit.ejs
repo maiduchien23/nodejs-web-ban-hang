@@ -185,6 +185,101 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <td>Quản lý màu</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsRead"
+              value="colors.read" <%= permissionUtils.get(permissions,
+              "colors.read") && "checked" %> />
+              <label for="colorsRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsAdd"
+              value="colors.add" <%= permissionUtils.get(permissions,
+              "colors.add") && "checked" %> />
+              <label for="colorsAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsUpdate"
+              value="colors.update" <%= permissionUtils.get(permissions,
+              "colors.update") && "checked" %> />
+              <label for="colorsUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="colorsDelete"
+              value="colors.delete" <%= permissionUtils.get(permissions,
+              "colors.delete") && "checked" %> />
+              <label for="colorsDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Quản lý size</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesRead"
+              value="sizes.read" <%= permissionUtils.get(permissions,
+              "sizes.read") && "checked" %> />
+              <label for="sizesRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesAdd"
+              value="sizes.add" <%= permissionUtils.get(permissions,
+              "sizes.add") && "checked" %> />
+              <label for="sizesAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesUpdate"
+              value="sizes.update" <%= permissionUtils.get(permissions,
+              "sizes.update") && "checked" %> />
+              <label for="sizesUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="sizesDelete"
+              value="sizes.delete" <%= permissionUtils.get(permissions,
+              "sizes.delete") && "checked" %> />
+              <label for="sizesDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Quản lý biến thể sản phẩm</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" name="permission" id="productVariantsRead"
+              value="productVariants.read" <%= permissionUtils.get(permissions,
+              "productVariants.read") && "checked" %> />
+              <label for="productVariantsRead">Xem</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission" id="productVariantsAdd"
+              value="productVariants.add" <%= permissionUtils.get(permissions,
+              "productVariants.add") && "checked" %> />
+              <label for="productVariantsAdd">Thêm</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission"
+              id="productVariantsUpdate" value="productVariants.update" <%=
+              permissionUtils.get(permissions, "productVariants.update") &&
+              "checked" %> />
+              <label for="productVariantsUpdate">Sửa</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" name="permission"
+              id="productVariantsDelete" value="productVariants.delete" <%=
+              permissionUtils.get(permissions, "productVariants.delete") &&
+              "checked" %> />
+              <label for="productVariantsDelete">Xóa</label>
+            </div>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
   <div>

@@ -1,27 +1,29 @@
+// models/UserRole.js
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class ProductColor extends Model {
+  class UserPermission extends Model {
     static associate(models) {
-      ProductColor.hasMany(models.ProductVariant, { foreignKey: "colorId" });
+      // No association needed for UserRole
     }
   }
-  ProductColor.init(
+  UserPermission.init(
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      name: DataTypes.STRING(50),
+      userId: DataTypes.INTEGER,
+      permissionId: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
-      modelName: "ProductColor",
-      tableName: "productcolors",
+      modelName: "UserPermission",
+      tableName: "userpermissions",
     }
   );
-  return ProductColor;
+  return UserPermission;
 };

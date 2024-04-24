@@ -1,0 +1,120 @@
+<div class="card-body">
+  <div class="mb-3">
+    <form action="/admin/productVariants/add" method="get">
+      <button type="submit" class="btn btn-primary">Thêm mới</button>
+    </form>
+  </div>
+  <!-- Thêm bảng danh sách sản phẩm -->
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="checkboxAll"></th>
+				<th style="width: 10px">#</th>
+        <th>Tên sản phẩm</th>
+        <th>Màu sắc</th>
+        <th>Kích thước</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <% if(permissionUtils.getPermissionUser(permissionUser, 'productVariants.update') || permissionUtils.getPermissionUser(permissionUser, 'productVariants.delete')) { %>
+        <th colspan="2">Chức năng</th>
+        <% } %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% productVariants.forEach((productVariant,index )=> { %>
+      <tr>
+        <th><input type="checkbox" class="checkboxItem" value="<%= productVariants.id %>"></th>
+        <td><%= index + 1 %></td>
+        <td><%= productVariant.Product.name %></td>
+        <td><%= productVariant.ProductColor.name %></td>
+        <td><%= productVariant.ProductSize.name %></td>
+        <td><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productVariant.price) %></td>
+        <td><%= productVariant.quantityAvailable %></td>
+        <% if(permissionUtils.getPermissionUser(permissionUser, 'productVariants.update')) { %>
+        <td>
+          <form
+            action="/admin/productVariants/edit/<%= productVariant.id %>"
+            method="get"
+          >
+            <button type="submit" class="btn btn-info">
+              <i class="fas fa-edit"></i>
+            </button>
+          </form>
+        </td>
+        <% } %>
+        <% if(permissionUtils.getPermissionUser(permissionUser, 'productVariants.delete')) { %>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#modal-danger-<%= productVariant.id %>"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <div class="modal fade" id="modal-danger-<%= productVariant.id %>">
+            <div class="modal-dialog">
+              <div class="modal-content bg-danger">
+                <div class="modal-header">
+                  <h4 class="modal-title">Xóa sản phẩm</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Bạn có chắc xóa sản phẩm này?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button
+                    type="button"
+                    class="btn btn-outline-light"
+                    data-dismiss="modal"
+                  >
+                    Không
+                  </button>
+                  <form
+                    action="/admin/productVariants/delete/<%= productVariant.id %>"
+                    method="post"
+                  >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button type="submit" class="btn btn-outline-light">
+                      Có
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <% } %>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <div class="d-flex mt-3 align-items-center justify-content-between">
+		<!-- Chọn số lượng bản ghi hiển thị -->
+		<form action="" method="post">
+			<div class="form-group">
+				<div class="d-flex align-items-center" style="width: 170px">
+					<label class="mr-2 mb-0 w-100">Số bản ghi</label>
+					<select class="form-control record-number" name="recordNumber">
+						<option value="5" <%= +recordNumber === 5 ? 'selected' : "" %>>5</option>
+						<option value="10" <%= +recordNumber === 10 ? 'selected' : "" %>>10</option>
+						<option value="15" <%= +recordNumber === 15 ? 'selected' : "" %>>15</option>
+						<option value="20" <%= +recordNumber === 20 ? 'selected' : "" %>>20</option>
+					</select>
+				</div>
+			</div>
+		</form>
+		<!-- phân trang -->
+		<%- include("../../subviews/paginate", {totalPage, page}) %>
+	</div>
+</div>
+
+

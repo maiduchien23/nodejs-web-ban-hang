@@ -18,8 +18,22 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       productId: DataTypes.INTEGER,
-      colorId: DataTypes.STRING(50),
-      sizeId: DataTypes.STRING(20),
+      colorId: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
+        references: {
+          model: "productcolors",
+          key: "id",
+        },
+      },
+      sizeId: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
+        references: {
+          model: "productsizes",
+          key: "id",
+        },
+      },
       originalPrice: DataTypes.DECIMAL,
       discountPrice: DataTypes.DECIMAL,
       price: DataTypes.DECIMAL,

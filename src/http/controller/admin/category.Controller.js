@@ -2,6 +2,9 @@ const { Op } = require("sequelize");
 const { validationResult } = require("express-validator");
 const model = require("../../../models/index");
 const Category = model.Category;
+const Brand = model.Brand;
+const Color = model.ProductColor;
+const Size = model.ProductSize;
 const permissionUtils = require("../../../utils/permissionUtils");
 const { getPaginateUrl } = require("../../../utils/url");
 
@@ -48,7 +51,9 @@ module.exports = {
       limit: +recordNumber,
       offset: offset,
     });
-
+    const brands = await Brand.findAll();
+    const colors = await Color.findAll();
+    const sizes = await Size.findAll();
     const permissionUser = await permissionUtils.roleUser(req);
 
     res.render("admin/category/index", {
@@ -64,6 +69,9 @@ module.exports = {
       page,
       recordNumber,
       userName,
+      brands,
+      colors,
+      sizes,
     });
   },
 

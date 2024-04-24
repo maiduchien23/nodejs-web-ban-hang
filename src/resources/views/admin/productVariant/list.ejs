@@ -1,0 +1,15 @@
+<% productVariants.forEach((productVariant,index )=> { %>
+<tr>
+  <!-- Hiển thị thông tin biến thể sản phẩm -->
+  <td><%= index + 1 %></td>
+  <td><%= productVariant.Product.name %></td>
+  <td><%= productVariant.ProductColor.name %></td>
+  <td><%= productVariant.ProductSize.name %></td>
+  <td>
+    <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+    }).format(productVariant.price) %>
+  </td>
+  <td><%= productVariant.quantityAvailable %></td>
+  <!-- Chức năng chỉnh sửa và xóa biến thể sản phẩm -->
+</tr>
+<% }) %>
