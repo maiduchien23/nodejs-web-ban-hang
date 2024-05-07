@@ -1,6 +1,4 @@
 <div class="card-body">
-   
-
     <% function renderTable(title, items, permission, addLink, editLinkPrefix, deleteLinkPrefix) { %>
     <% if(permissionUtils.getPermissionUser(permissionUser, permission.add)) { %>
     <table class="table table-bordered text-center">
@@ -73,9 +71,7 @@
     <% renderTable("Tất cả danh mục", categories, { add: 'categories.add', update: 'categories.update', delete: 'categories.delete' }, "/admin/categories/add", "/admin/categories/edit/", "/admin/categories/delete/") %>
     <% renderTable("Tất cả thương hiệu", brands, { add: 'brands.add', update: 'brands.update', delete: 'brands.delete' }, "/admin/brands/add", "/admin/brands/edit/", "/admin/brands/delete/") %>
     <% renderTable("Tất cả màu", colors, { add: 'colors.add', update: 'colors.update', delete: 'colors.delete' }, "/admin/colors/add", "/admin/colors/edit/", "/admin/colors/delete/") %>
-    <% renderTable("Tất cả size", sizes, { add: 'sizes.add', update: 'sizes.update', delete: 'sizes.delete' }, "/admin/sizes/add", "/admin/sizes/edit/", "/admin/sizes/delete/") %>
-
-
+    <% renderTable("Tất cả size", sizes, { add: 'sizes.add', update: 'sizes.update', delete: 'sizes.delete' }, "/admin/sizes/add", "/admin/sizes/edit/", "/admin/sizes/delete/") %>x
     <div class="d-flex mt-3 align-items-center justify-content-between">
         <form action="" method="post">
             <div class="form-group">

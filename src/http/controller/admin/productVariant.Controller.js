@@ -9,7 +9,7 @@ const validate = require("../../../utils/validate");
 
 const { ProductVariant, Product, ProductColor, ProductSize } = models;
 
-const moduleName = "Biến thể sản phẩm";
+const moduleName = "Sản phẩm";
 
 module.exports = {
   index: async (req, res) => {

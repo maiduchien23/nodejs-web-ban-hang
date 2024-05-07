@@ -1,0 +1,40 @@
+<div class="card-body">
+  <form action="/admin/combos/edit/<%= combo.id %>" method="POST">
+    <div class="form-group">
+      <label for="name">Tên combo:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        value="<%= combo.name %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Giá:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        name="price"
+        value="<%= combo.price %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Mô tả:</label>
+      <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        rows="3"
+        placeholder="Nhập mô tả"
+      >
+<%= combo.description %></textarea
+      >
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật combo</button>
+  </form>
+</div>

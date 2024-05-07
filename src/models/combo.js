@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Combo extends Model {
     static associate(models) {
-      Combo.hasMany(models.ComboItem, { foreignKey: "id" });
+      Combo.hasMany(models.ComboItem, { foreignKey: "comboId" });
     }
   }
   Combo.init(
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      combo_name: DataTypes.STRING(200),
+      name: DataTypes.STRING(200),
       price: DataTypes.DECIMAL,
       description: DataTypes.TEXT,
       createdAt: DataTypes.DATE,

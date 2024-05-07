@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ComboItem extends Model {
     static associate(models) {
-      ComboItem.belongsTo(models.Combo, { foreignKey: "ComboId" });
+      ComboItem.belongsTo(models.Combo, { foreignKey: "comboId" });
       ComboItem.belongsTo(models.Product, { foreignKey: "productId" });
     }
   }

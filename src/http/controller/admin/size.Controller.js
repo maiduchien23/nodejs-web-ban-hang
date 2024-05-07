@@ -5,11 +5,11 @@ const { getPaginateUrl } = require("../../../utils/url");
 const Size = model.ProductSize;
 const permissionUtils = require("../../../utils/permissionUtils");
 
-const moduleName = "Kích thước ";
+const moduleName = "Danh mục";
 
 module.exports = {
   index: async (req, res) => {
-    const title = "Danh sách kích thước";
+    const title = "Danh sách danh mục";
     const userName = req.user.name;
     const filters = {};
 

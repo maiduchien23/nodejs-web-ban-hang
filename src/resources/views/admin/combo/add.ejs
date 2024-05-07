@@ -1,0 +1,140 @@
+<div class="card-body">
+  <form  action="/admin/combos/add" method="POST">
+    <div class="form-group">
+      <label for="name">Tên combo:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Nhập tên combo"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Giá:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        name="price"
+        placeholder="Nhập giá combo"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Mô tả:</label>
+      <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        rows="3"
+        placeholder="Nhập mô tả combo"
+        required
+      ></textarea>
+    </div>
+    
+    <div id="productForm">
+      <label for="name">Sản phẩm:</label>
+      <select id="productName" class="form-control">
+        <option value="">Chọn sản phẩm</option>
+      
+        <% products.forEach(product => { %>
+          <% if (product.quantityAvailable > 0) { %>
+            <option value="<%= product.id %>" data-price="<%= product.price %>" data-quantity="<%= product.quantityAvailable %>"><%= product.name %></option>
+            
+          <% } else { %>
+            <option value="" disabled><%= product.name %> - Không có sản phẩm</option>
+          <% } %>
+        <% }) %>
+      </select>
+    </div>
+    
+    <button type="button" id="addProductButton" class="btn btn-primary">Thêm sản phẩm</button>
+    <br><br>
+    <div class="selected-products">
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá sản phẩm</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="selectedProductsTable">
+          <!-- Dòng sản phẩm sẽ được thêm vào đây -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+    <button type="submit" class="btn btn-primary">Cập nhập</button>
+  </form>
+  
+</div>
+<script>
+  function formatCurrency(amount) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+}
+  // JavaScript để thêm sản phẩm vào bảng khi người dùng nhấn nút Thêm sản phẩm
+  document.getElementById('addProductButton').addEventListener('click', function() {
+  const productSelect = document.getElementById('productName');
+  const selectedProductOption = productSelect.options[productSelect.selectedIndex];
+  const productName = selectedProductOption.text;
+  const productId = selectedProductOption.value;
+  const productPrice = selectedProductOption.dataset.price;
+  const productQuantity = selectedProductOption.dataset.quantity;
+  
+  if (!productId) {
+    alert('Vui lòng chọn sản phẩm trước khi thêm!');
+    return;
+  }
+  
+  const selectedProductsTable = document.getElementById('selectedProductsTable');
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td>${productName}</td>
+    <td>${productQuantity}</td>
+    <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productPrice)}</td>
+    <td><button type="button" class="btn btn-danger delete-product-button">Xóa</button></td>   
+    <input type="hidden" name="comboItems" value="${productId}">
+    <input type="hidden" name="comboQuantities" value="${productQuantity}">
+    
+  `;
+  selectedProductsTable.appendChild(newRow);
+
+  // Xóa bảng khi người dùng nhấn nút Xóa
+  document.querySelectorAll('.delete-product-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      button.parentNode.parentNode.remove();
+    })
+  })
+});
+
+document.getElementById('comboForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Ngăn chặn gửi form mặc định
+  
+  const form = this;
+  const formData = new FormData(form);
+  
+  fetch(form.action, {
+    method: 'POST',
+    body: formData,
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Có lỗi xảy ra khi gửi dữ liệu');
+    }
+    return response.json();
+  })
+  .then(data => {
+    alert(data.message); // Hiển thị thông báo từ server (nếu có)
+    form.reset(); // Reset form sau khi gửi thành công
+  })
+  .catch(error => {
+    console.error('Lỗi:', error);
+    alert('Có lỗi xảy ra khi gửi dữ liệu');
+  });
+});
+</script>

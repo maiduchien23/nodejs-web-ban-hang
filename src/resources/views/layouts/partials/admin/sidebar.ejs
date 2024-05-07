@@ -106,15 +106,6 @@
 								<p>Danh sách</p>
 							</a>
 						</li>
-						<% if(permissionUtils.getPermissionUser(permissionUser, 'categories.add')) {%>
-						<li class="nav-item">
-							<a href="/admin/categories/add"
-								class="nav-link <%= title === "Thêm danh mục" ? "active" : "" %>">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Thêm mới</p>
-							</a>
-						</li>
-						<% } %>
 					</ul>
 				</li>
 				<% } %>
@@ -223,7 +214,7 @@
 							<a href="/admin/products"
 								class="nav-link <%= title === "Danh sách sản phẩm" ? "active" : "" %>">
 								<i class="far fa-circle nav-icon active"></i>
-								<p>Danh sách</p>
+								<p>Danh sách sản phẩm</p>
 							</a>
 						</li>
 				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.add')) {%>
@@ -231,10 +222,18 @@
 							<a href="/admin/products/add"
 								class="nav-link <%= title === "Thêm sản phẩm" ? "active" : "" %>">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Thêm mới</p>
+								<p>Thêm sản phẩm</p>
 							</a>
 						</li>
 						<% } %>
+
+						<li class="nav-item">
+							<a href="/admin/combos"
+								class="nav-link <%= title === "Danh sách combo" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon "></i>
+								<p>Combo sản phẩm</p>
+							</a>
+						</li>
 					</ul>
 				</li>
 				<% } %>
@@ -267,6 +266,35 @@
 						
 					</ul>
 				</li> -->
+				
+				<li class="nav-item <%= moduleName === "" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "" ? "active" : "" %>">
+						<i class="fas fa-box-open"></i>
+						<p>
+							Quản lý đơn hàng 
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href=""
+								class="nav-link <%= title === "" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+						
+						<li class="nav-item">
+							<a href=""
+								class="nav-link <%= title === "" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						
+					</ul>
+				</li>
 				
 				<li class="nav-item">
 					<a href="/admin/setting"

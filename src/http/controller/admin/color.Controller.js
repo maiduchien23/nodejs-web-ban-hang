@@ -5,11 +5,11 @@ const { getPaginateUrl } = require("../../../utils/url");
 const Color = model.ProductColor;
 const permissionUtils = require("../../../utils/permissionUtils");
 
-const moduleName = "Màu";
+const moduleName = "Danh mục";
 
 module.exports = {
   index: async (req, res) => {
-    const title = "Danh sách màu";
+    const title = "Danh sách danh mục";
     const userName = req.user.name;
     const filters = {};
 
