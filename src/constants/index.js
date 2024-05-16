@@ -1,3 +1,5 @@
+const { header } = require("express-validator");
+
 module.exports = {
   userColumnFile: [
     {
@@ -21,56 +23,6 @@ module.exports = {
       key: "address",
     },
   ],
-  categoryColumnFile: [
-    {
-      header: "STT",
-      key: "stt",
-    },
-    {
-      header: "Tên danh mục",
-      key: "categoryName",
-    },
-    {
-      header: "Ưu tiên",
-      key: "priority",
-    },
-    {
-      header: "Ngày tạo",
-      key: "createdAt",
-    },
-    {
-      header: "Người tạo",
-      key: "createdBy",
-    },
-    {
-      header: "Ngày cập nhật",
-      key: "updatedAt",
-    },
-    {
-      header: "Người cập nhật",
-      key: "updatedBy",
-    },
-  ],
-
-  brandColumnFile: [
-    {
-      header: "STT",
-      key: "stt",
-    },
-    {
-      header: "Tên thương hiệu",
-      key: "brandName",
-    },
-    {
-      header: "Ngày tạo",
-      key: "createdAt",
-    },
-    {
-      header: "Ngày cập nhật",
-      key: "updatedAt",
-    },
-  ],
-
   productColumnFile: [
     {
       header: "STT",
@@ -85,14 +37,7 @@ module.exports = {
       header: "Mô tả",
       key: "description",
     },
-    // {
-    //   header: "Giá gốc",
-    //   key: "originalPrice",
-    // },
-    // {
-    //   header: "Giá giảm",
-    //   key: "discountPrice",
-    // },
+
     {
       header: "Giá",
       key: "price",
@@ -112,6 +57,52 @@ module.exports = {
     {
       header: "Ngày tạo",
       key: "createdAt",
+    },
+  ],
+  orderColumnFile: [
+    {
+      header: "STT",
+      key: "stt",
+    },
+    {
+      header: "Mã đơn hàng",
+      key: "orderCode",
+    },
+    {
+      header: "Khách hàng",
+      key: "userId",
+    },
+    {
+      header: "Số điện thoại",
+      key: "phone",
+    },
+    {
+      header: "Tổng giá đơn hàng",
+      key: "totalAmount",
+    },
+    {
+      header: "Trạng thái đơn hàng",
+      key: "status",
+    },
+    {
+      header: "Tỉnh thành nhận hàng",
+      key: "province",
+    },
+    {
+      header: "Quận huyện nhận hàng",
+      key: "district",
+    },
+    {
+      header: "Xã phường nhận hàng",
+      key: "ward",
+    },
+    {
+      header: "Địa chỉ nhận hàng",
+      key: "addressDetail",
+    },
+    {
+      header: "Ngày tạo đơn hàng",
+      key: "orderDate",
     },
   ],
 };

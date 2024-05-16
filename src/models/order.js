@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
       Order.belongsTo(models.User, { foreignKey: "userId" });
-      Order.hasMany(models.OrderDetail, { foreignKey: "OrderDetailId" });
+      Order.hasMany(models.OrderDetail, { foreignKey: "orderId" });
     }
   }
   Order.init(
@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      orderCode: DataTypes.STRING(255),
       userId: DataTypes.INTEGER,
       orderDate: DataTypes.DATE,
       totalAmount: DataTypes.DECIMAL,

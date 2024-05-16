@@ -1,0 +1,126 @@
+<div class="card-body">
+	<div class="d-flex justify-content-end gap-2 container-fluid">
+		<div class="d-flex mr-2">
+			<a href="/admin/orders/import" class="btn btn-warning mr-2">
+				<i class="fas fa-file-import mr-1"></i>
+				Import File
+			</a>
+			<form action="/admin/orders/export" method="post">
+				<button type="submit" class="btn btn-primary">
+					<i class="fas fa-file-export mr-1"></i>
+					Export File
+				</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Thêm phần tìm kiếm -->
+	<section class="justify-content-between content mb-3">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="d-flex align-items-center col-md-8 offset-md-2 ml-0 p-0">
+					<form action="">
+						<div class="input-group">
+							<input type="text" class="form-control form-control-md" name="keyword" placeholder="Nhập từ tìm kiếm">
+							<div class="input-group-append" width="38px" height="38px">
+								<button type="submit" class="btn btn-md btn-default">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<div class="dropdown ml-2">
+						<button class="btn btn-default" data-toggle="dropdown">
+							<i class="fa fa-filter"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Thêm bảng danh sách đơn hàng -->
+	<table class="table table-bordered text-center">
+		<thead>
+			<tr>
+				<th><input type="checkbox" id="checkboxAll"></th>
+				<th style="width: 10px">#</th>
+				<th>Đơn hàng</th>
+				<th>Khách hàng</th>          
+				<th>Tổng tiền</th>
+				<th>Thời gian tạo</th>
+				<th>Trạng thái</th>
+				<th colspan="1">Chức năng</th>
+			</tr>
+		</thead>
+			<tbody>
+				<% orders.forEach((order, index) => { %>
+				<tr>
+					<th><input type="checkbox" class="checkboxItem" value="<%= order.id %>"></th>
+					<td><%= index + 1 %></td>
+					
+					<td>
+						<a href="/admin/orders/orderDetail/<%= order.id %>" class="btn btn-link"><%= order.orderCode %></a>
+					</td>
+
+					<td><%= order.User.name %></td>
+					<td><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalAmount) %></td>
+					<td><%= moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss") %></td>
+					<td><%= order.status %></td>
+					<!-- <td>
+						<form action="/admin/orders/edit/<%= order.id %>" method="get">
+							<button type="submit" class="btn btn-info">
+								<i class="fas fa-edit"></i>
+							</button>
+						</form>
+					</td> -->
+					<td>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= order.id %>">
+							<i class="fas fa-trash-alt"></i>
+						</button>
+						<div class="modal fade" id="modal-danger-<%= order.id %>">
+							<div class="modal-dialog">
+								<div class="modal-content bg-danger">
+									<div class="modal-header">
+										<h4 class="modal-title">Xóa đơn hàng</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p>Bạn có chắc xóa đơn hàng này?</p>
+									</div>
+									<div class="modal-footer justify-content-between">
+										<button type="button" class="btn btn-outline-light" data-dismiss="modal">Không</button>
+										<form action="/admin/orders/delete/<%= order.id %>" method="post">
+											<input type="hidden" name="_method" value="DELETE">
+											<button type="submit" class="btn btn-outline-light">Có</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<% }) %>
+			</tbody>
+	</table>
+	<div class="d-flex mt-3 align-items-center justify-content-between">
+		<!-- Chọn số lượng bản ghi hiển thị -->
+		<form action="" method="post">
+			<div class="form-group">
+				<div class="d-flex align-items-center" style="width: 170px">
+					<label class="mr-2 mb-0 w-100">Số bản ghi</label>
+					<select class="form-control record-number" name="recordNumber">
+						<option value="5" <%= +recordNumber === 5 ? 'selected' : "" %>>5</option>
+						<option value="10" <%= +recordNumber === 10 ? 'selected' : "" %>>10</option>
+						<option value="15" <%= +recordNumber === 15 ? 'selected' : "" %>>15</option>
+						<option value="20" <%= +recordNumber === 20 ? 'selected' : "" %>>20</option>
+					</select>
+				</div>
+			</div>
+		</form>
+		<!-- Hiển thị số trang -->
+		<%- include("../../subviews/paginate", {totalPage, page}) %>
+	</div>
+</div>

@@ -16,6 +16,7 @@ const colorRouter = require("./color");
 const sizeRouter = require("./size");
 const productVariantRouter = require("./productVariant");
 const comboRouter = require("./combo");
+const orderRouter = require("./order");
 
 router.get("/", DashboardController.index);
 router.get("/changePassword", ProfileController.changePassword);
@@ -35,5 +36,6 @@ router.use("/colors", colorRouter);
 router.use("/sizes", sizeRouter);
 router.use("/productVariants", productVariantRouter);
 router.use("/combos", comboRouter);
+router.use("/orders", orderRouter);
 
 module.exports = router;

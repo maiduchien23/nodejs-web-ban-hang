@@ -1,0 +1,377 @@
+<div class="card-body">
+  <form action="/admin/orders/add" method="post">
+    <!-- Phần Thông tin đơn hàng -->
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Thông tin đơn hàng</h4>
+        <div class="form-group">
+          <label for="orderCode">Đơn hàng:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="orderCode"
+            name="orderCode"
+            value="<%= orderCode %>"
+            required
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label for="orderDate">Ngày đặt hàng:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="orderDate"
+            name="orderDate"
+          />
+        </div>
+        <div class="form-group">
+          <label for="status">Trạng thái:</label>
+          <select class="form-control" id="status" name="status">
+            <option value="Chưa xác nhận">Chưa xác nhận</option>
+            <option value="Đã xác nhận">Đã xác nhận</option>
+            <option value="Đang giao hàng">Đang giao hàng</option>
+            <option value="Hoàn thành">Hoàn thành</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Phần Thông tin khách hàng -->
+
+      <div class="col-md-4">
+        <h4>Thông tin khách hàng</h4>
+        <div class="form-group">
+          <label for="userId">Khách hàng:</label>
+          <select class="form-control" id="userId" name="userId">
+            <% users.forEach(user => { %>
+            <option value="<%= user.id %>"><%= user.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="phone">Số điện thoại:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            name="phone"
+            placeholder="Nhập số điện thoại"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="province">Tỉnh/Thành phố:</label>
+          <select
+            class="form-control"
+            id="province"
+            name="province"
+            aria-label=".form-select-sm"
+          >
+            <option value="" selected>Chọn tỉnh thành</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="district">Quận/Huyện:</label>
+          <select
+            class="form-control"
+            id="district"
+            name="district"
+            aria-label=".form-select-sm"
+          >
+            <option value="" selected>Chọn quận huyện</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ward">Phường/Xã:</label>
+          <select
+            class="form-control"
+            id="ward"
+            name="ward"
+            aria-label=".form-select-sm"
+          >
+            <option value="" selected>Chọn phường xã</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="addressDetail">Địa chỉ chi tiết:</label>
+          <textarea
+            class="form-control"
+            id="addressDetail"
+            name="addressDetail"
+            placeholder="Nhập địa chỉ chi tiết"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="orderNote">Ghi chú:</label>
+          <textarea
+            class="form-control"
+            id="orderNote"
+            name="orderNote"
+            placeholder="Nhập ghi chú"
+            required
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Phần Sản phẩm -->
+      <div class="col-md-8">
+        <h4>Sản phẩm</h4>
+        <div class="form-group">
+          <label for="name">Sản phẩm:</label>
+          <select id="productCombo" class="form-control">
+            <option value="">Chọn sản phẩm hoặc combo sản phẩm</option>
+            <% products.forEach(product => { %> <% if (product.quantityAvailable
+            > 0) { %>
+            <option
+              value="<%= product.id %>"
+              data-type="product"
+              data-price="<%= product.price %>"
+              data-quantity="<%= product.quantityAvailable %>"
+            >
+              <%= product.name %>
+            </option>
+            <% } else { %>
+            <option value="" disabled>
+              <%= product.name %> - Không có sản phẩm
+            </option>
+            <% } %> <% }) %> <% combos.forEach(combo => { %>
+            <option
+              value="<%= combo.id %>"
+              data-type="combo"
+              data-price="<%= combo.price %>"
+              data-quantity="<%= combo.quantityAvailable %>"
+            >
+              <%= combo.name %> (Combo)
+            </option>
+            <% }) %>
+          </select>
+        </div>
+        <button type="button" id="addProductButton" class="btn btn-primary">
+          Chọn sản phẩm
+        </button>
+        <br /><br />
+        <div class="selected-products">
+          <table class="table table-bordered text-center">
+            <thead>
+              <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Tổng giá</th>
+              </tr>
+            </thead>
+            <tbody id="selectedProductsTable">
+              <!-- Dòng sản phẩm sẽ được thêm vào đây -->
+            </tbody>
+          </table>
+        </div>
+        <div id="totalAmountDisplay">
+          Tổng số tiền: <span id="totalAmount"></span>
+        </div>
+
+        <input type="hidden" name="totalAmount" id="totalAmountInput" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-12">
+        <!-- Button thêm đơn hàng -->
+        <button type="submit" class="btn btn-primary">Thêm đơn hàng</button>
+      </div>
+    </div>
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script>
+    var provinces = document.getElementById("province");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+      url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+      method: "GET",
+      responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+      renderCity(result.data);
+    });
+
+    function renderCity(data) {
+      for (const x of data) {
+        provinces.options[provinces.options.length] = new Option(
+          x.Name,
+          x.Name
+        );
+      }
+      provinces.onchange = function () {
+        districts.length = 1;
+        wards.length = 1;
+        const selectedProvinceName = this.options[this.selectedIndex].text;
+        const selectedCity = data.find(
+          (city) => city.Name === selectedProvinceName
+        );
+        if (selectedCity) {
+          for (const district of selectedCity.Districts) {
+            districts.options[districts.options.length] = new Option(
+              district.Name,
+              district.Name
+            );
+          }
+        }
+      };
+      districts.onchange = function () {
+        wards.length = 1;
+        const selectedProvinceName =
+          provinces.options[provinces.selectedIndex].text;
+        const selectedDistrictName = this.options[this.selectedIndex].text;
+        const selectedCity = data.find(
+          (city) => city.Name === selectedProvinceName
+        );
+        if (selectedCity) {
+          const selectedDistrict = selectedCity.Districts.find(
+            (district) => district.Name === selectedDistrictName
+          );
+          if (selectedDistrict) {
+            for (const ward of selectedDistrict.Wards) {
+              wards.options[wards.options.length] = new Option(
+                ward.Name,
+                ward.Name
+              );
+            }
+          }
+        }
+      };
+    }
+  </script>
+  <script>
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(amount);
+    }
+
+    function updateTotal() {
+      let totalAmount = 0;
+      const selectedProductsRows = document.querySelectorAll(
+        "#selectedProductsTable tr"
+      );
+      selectedProductsRows.forEach((row) => {
+        const quantityInput = row.querySelector(".quantity-input");
+        const priceCell = row.querySelectorAll("td")[2];
+        const totalCell = row.querySelectorAll("td")[3];
+        const productPrice = parseInt(
+          priceCell.textContent.replace(/[^0-9]/g, "")
+        );
+        const productQuantity = parseInt(quantityInput.value);
+        const subtotal = productPrice * productQuantity;
+        totalAmount += subtotal;
+        totalCell.textContent = formatCurrency(subtotal);
+      });
+      document.getElementById("totalAmount").textContent =
+        formatCurrency(totalAmount);
+      document.getElementById("totalAmountInput").value = totalAmount;
+    }
+
+    document
+      .getElementById("addProductButton")
+      .addEventListener("click", function () {
+        const productSelect = document.getElementById("productCombo");
+        const selectedOption =
+          productSelect.options[productSelect.selectedIndex];
+        const productName = selectedOption.text;
+        const productId = selectedOption.value;
+        const productPrice = selectedOption.dataset.price;
+        const productQuantity =
+          selectedOption.dataset.quantity || selectedOption.dataset.maxQuantity;
+        const productType = selectedOption.dataset.type;
+
+        if (!productId) {
+          alert("Vui lòng chọn sản phẩm hoặc combo sản phẩm trước khi thêm!");
+          return;
+        }
+
+        const selectedProductsTable = document.getElementById(
+          "selectedProductsTable"
+        );
+        const newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+        <td>${productName}</td>
+        <td>
+          <div class="input-group quantity-control">
+            <input type="number" class="form-control quantity-input" name="orderQuantities" value="1" min="1" max="${productQuantity}">
+            <div class="input-group-append flex-column">
+              <button class="btn btn-outline-secondary quantity-increment" type="button">&#9650;</button>
+              <button class="btn btn-outline-secondary quantity-decrement" type="button">&#9660;</button>
+            </div>
+          </div>
+        </td>
+        <input type="hidden" name="orderItems" value="${productId}">
+        <input type="hidden" name="quantities" value="${productQuantity}">
+        <input type="hidden" name="orderPricePerUnits" value="${productPrice}">
+
+        <td>${formatCurrency(productPrice)}</td>
+        <td>${formatCurrency(productPrice)}</td>
+        <td><button type="button" class="btn btn-danger delete-product-button">Xóa</button></td>
+      `;
+        selectedProductsTable.appendChild(newRow);
+        updateTotal();
+
+        // Xóa sản phẩm khi người dùng nhấp vào nút Xóa
+        newRow
+          .querySelector(".delete-product-button")
+          .addEventListener("click", function () {
+            newRow.remove();
+            updateTotal();
+          });
+
+        // Tăng/Giảm số lượng sản phẩm khi người dùng nhấp vào nút Tăng hoặc Giảm
+        const quantityInput = newRow.querySelector(".quantity-input");
+        const priceCell = newRow.querySelectorAll("td")[2];
+        const totalCell = newRow.querySelectorAll("td")[3];
+        const isCombo = productType === "combo";
+
+        quantityInput.addEventListener("input", function () {
+          const currentValue = parseInt(quantityInput.value);
+          const maxQuantity = parseInt(quantityInput.max);
+          if (currentValue > maxQuantity) {
+            alert("Số lượng nhập vào vượt quá số lượng trong kho!");
+            quantityInput.value = maxQuantity;
+          }
+          const total =
+            parseInt(quantityInput.value) * parseFloat(productPrice);
+          totalCell.textContent = formatCurrency(total);
+          updateTotal();
+        });
+
+        newRow
+          .querySelector(".quantity-increment")
+          .addEventListener("click", function () {
+            const currentValue = parseInt(quantityInput.value);
+            if (
+              (currentValue < parseInt(productQuantity) && !isCombo) ||
+              isCombo
+            ) {
+              quantityInput.value = currentValue + 1;
+              const total =
+                parseInt(quantityInput.value) * parseFloat(productPrice);
+              totalCell.textContent = formatCurrency(total);
+              updateTotal();
+            }
+          });
+
+        newRow
+          .querySelector(".quantity-decrement")
+          .addEventListener("click", function () {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+              quantityInput.value = currentValue - 1;
+              const total =
+                parseInt(quantityInput.value) * parseFloat(productPrice);
+              totalCell.textContent = formatCurrency(total);
+              updateTotal();
+            }
+          });
+      });
+  </script>
+</div>

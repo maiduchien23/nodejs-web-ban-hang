@@ -1,0 +1,74 @@
+<div class="card">
+  <div class="card-header">
+    <a href="/admin/orders/edit/<%= order.id %>" class="btn btn-primary"
+      >Sửa đơn hàng</a
+    >
+  </div>
+  <div class="card-header">
+    <h5 class="card-title"><%= title %></h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Thông tin đơn hàng</h5>
+        <p><strong>Mã đơn hàng:</strong> <%= order.orderCode %></p>
+        <p>
+          <strong>Ngày đặt hàng:</strong> <%=
+          moment(order.orderDate).format("DD-MM-YYYY") %>
+        </p>
+        <p><strong>Trạng thái:</strong> <%= order.status %></p>
+      </div>
+      <div class="col-md-6">
+        <h5>Thông tin khách hàng</h5>
+        <p><strong>Họ tên:</strong> <%= order.User.name %></p>
+        <p><strong>Số điện thoại:</strong> <%= order.phone %></p>
+        <p>
+          <strong>Địa chỉ:</strong> <%= `${order.province}, ${order.district},
+          ${order.ward}, ${order.addressDetail}` %>
+        </p>
+        <p><strong>Ghi chú:</strong> <%= order.orderNote %></p>
+      </div>
+    </div>
+
+    <h5>Thông tin sản phẩm</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Tổng giá</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let totalAmount = 0; %> <% order.OrderDetails.forEach(detail => { %>
+        <tr>
+          <td><%= detail.Product.name %></td>
+          <td><%= detail.quantity %></td>
+          <td>
+            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+            'VND' }).format(detail.pricePerUnit) %>
+          </td>
+          <td>
+            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+            'VND' }).format(detail.quantity * detail.pricePerUnit) %>
+          </td>
+          <% totalAmount += detail.quantity * detail.pricePerUnit; %>
+        </tr>
+        <% }) %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right">
+            <strong>Tổng thanh toán:</strong>
+          </td>
+          <td>
+            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+            'VND' }).format(totalAmount) %>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

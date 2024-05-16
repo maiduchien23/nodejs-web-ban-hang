@@ -58,6 +58,71 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.form-row .col-md-4 {
+  padding: 0 15px;
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .form-row .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+h4 {
+  margin-bottom: 15px;
+}
+
+.quantity-decrement::before {
+  content: "▼";
+}
+
+.quantity-increment::before {
+  content: "▲";
+}
+
+.quantity-control .quantity-input {
+  text-align: center;
+  width: 50px;
+  padding: 0;
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove border radius */
+  outline: none; /* Remove outline */
+}
+
+.quantity-control .input-group-append {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity-control .btn {
+  padding: 0; /* Remove padding */
+  height: 18px; /* Reduce height */
+  width: 18px; /* Reduce width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ced4da; /* Add border for button */
+  border-radius: 4px; /* Add border radius for button */
+}
+
+.quantity-control .btn:focus {
+  box-shadow: none; /* Remove focus box-shadow */
+}
+
+.quantity-control .btn:hover {
+  background-color: #f8f9fa; /* Change background color on hover */
+}
+
 
 body {
   margin: 0;
@@ -15726,4 +15791,14 @@ h1 {
   max-height: 300px;
   overflow-x:hidden;
   overflow-y:auto;
+}
+
+.separator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px; /* Độ rộng của đường viền mờ */
+  background-color: rgba(0, 0, 0, 0.3); /* Màu của đường viền mờ */
+  z-index: 999; /* Đảm bảo đường viền mờ hiển thị trên các phần tử khác */
+  margin-left: -1px; /* Dịch chuyển đường viền mờ sang trái một nửa để nằm ở giữa */
 }

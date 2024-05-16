@@ -23,9 +23,9 @@
             <tr>
                 <th style="width: 20px">#</th>
                 <th style="width: 40%">Tên thương hiệu</th>               
-                <% if(permissionUtils.getPermissionUser(permissionUser, 'brands.update') || permissionUtils.getPermissionUser(permissionUser, 'brands.delete')) { %>
+               
                 <th colspan="2">Chức năng</th>
-                <% } %>
+              
             </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
             <tr>
                 <td><%= index + 1 %></td>
                 <td><%= brand.name %></td>             
-                <% if(permissionUtils.getPermissionUser(permissionUser, 'brands.update')) { %>
+               
                 <td>
                     <form action="/admin/brands/edit/<%= brand.id %>" method="get">
                         <button type="submit" class="btn btn-info">
@@ -41,8 +41,7 @@
                         </button>
                     </form>
                 </td>
-                <% } %>
-                <% if(permissionUtils.getPermissionUser(permissionUser, 'brands.delete')) { %>
+               
                 <td>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= brand.id %>">
                         <i class="fas fa-trash-alt"></i>
@@ -70,7 +69,7 @@
                         </div>
                     </div>
                 </td>
-                <% } %>
+                
             </tr>
             <% }) %>
         </tbody>

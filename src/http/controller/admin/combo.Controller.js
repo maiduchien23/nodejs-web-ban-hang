@@ -163,7 +163,11 @@ module.exports = {
       }
 
       // Lấy danh sách sản phẩm để hiển thị trong form
-      const products = await Product.findAll();
+      const products = await Product.findAll({
+        include: [
+          { model: ProductVariant, include: [ProductColor, ProductSize] },
+        ],
+      });
 
       const permissionUser = await permissionUtils.roleUser(req);
 
@@ -188,11 +192,13 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { id } = req.params;
-      console.log("ID:", id);
-      const { name, price, description, comboItems } = req.body;
+      const { name, price, description, comboItems, comboQuantities } =
+        req.body;
 
       // Tìm combo theo ID
-      const combo = await Combo.findByPk(id);
+      const combo = await Combo.findByPk(id, {
+        include: [ComboItem], // Bổ sung include để lấy các mục trong combo
+      });
 
       if (!combo) {
         req.flash("errors", "Không tìm thấy combo");
@@ -202,19 +208,27 @@ module.exports = {
       // Cập nhật thông tin của combo
       await combo.update({ name, price, description });
 
-      // Cập nhật các mục trong combo
-      await Promise.all(
-        comboItems.map(async (itemData) => {
-          const comboItem = await ComboItem.findByPk(itemData.id);
+      // Xóa các mục trong combo cũ
+      await ComboItem.destroy({ where: { comboId: combo.id } });
 
-          if (!comboItem) {
-            throw new Error(`Combo item with id ${itemData.id} not found.`);
-          }
+      // Tạo các mục trong combo mới
+      if (
+        !Array.isArray(comboItems) ||
+        !Array.isArray(comboQuantities) ||
+        comboItems.length !== comboQuantities.length
+      ) {
+        console.error("Combo items or quantities are missing or invalid.");
+        req.flash("errors", "Dữ liệu mục combo hoặc số lượng không hợp lệ.");
+        return res.redirect("/admin/combos");
+      }
 
-          // Cập nhật thông tin của mục trong combo
-          await comboItem.update({ quantity: itemData.quantity });
-        })
-      );
+      for (let i = 0; i < comboItems.length; i++) {
+        await ComboItem.create({
+          comboId: combo.id,
+          productId: comboItems[i],
+          quantity: comboQuantities[i],
+        });
+      }
 
       req.flash("success", "Cập nhật combo sản phẩm thành công");
       return res.redirect(`/admin/combos/edit/${id}`);
