@@ -1,8 +1,11 @@
 <div class="card">
   <div class="card-header">
+    <% if(permissionUtils.getPermissionUser(permissionUser, 'orders.update'))
+    {%>
     <a href="/admin/orders/edit/<%= order.id %>" class="btn btn-primary"
       >Sửa đơn hàng</a
     >
+    <% } %>
   </div>
   <div class="card-header">
     <h5 class="card-title"><%= title %></h5>

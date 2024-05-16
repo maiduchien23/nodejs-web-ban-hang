@@ -109,6 +109,7 @@
 					</ul>
 				</li>
 				<% } %>
+			
 				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.read')) {%>
 				<li class="nav-item <%= moduleName === "Sản phẩm" ? "menu-is-opening menu-open" : "" %>">
 					<a href="#"
@@ -136,6 +137,7 @@
 							</a>
 						</li>
 						<% } %>
+
 						<li class="nav-item">
 							<a href="/admin/combos"
 								class="nav-link <%= title === "Danh sách combo" ? "active" : "" %>">
@@ -164,7 +166,7 @@
 								<p>Danh sách đơn hàng</p>
 							</a>
 						</li>
-				<% if(permissionUtils.getPermissionUser(permissionUser, 'orders.add')) {%>
+						<% if(permissionUtils.getPermissionUser(permissionUser, 'orders.add')) {%>
 						<li class="nav-item">
 							<a href="/admin/orders/add"
 								class="nav-link <%= title === "Thêm đơn hàng" ? "active" : "" %>">

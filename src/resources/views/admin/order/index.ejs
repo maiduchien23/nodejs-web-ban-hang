@@ -50,7 +50,9 @@
 				<th>Tổng tiền</th>
 				<th>Thời gian tạo</th>
 				<th>Trạng thái</th>
+				<% if(permissionUtils.getPermissionUser(permissionUser, 'orders.update') || permissionUtils.getPermissionUser(permissionUser, 'orders.delete')) { %>
 				<th colspan="1">Chức năng</th>
+				<% } %>
 			</tr>
 		</thead>
 			<tbody>
@@ -67,13 +69,7 @@
 					<td><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalAmount) %></td>
 					<td><%= moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss") %></td>
 					<td><%= order.status %></td>
-					<!-- <td>
-						<form action="/admin/orders/edit/<%= order.id %>" method="get">
-							<button type="submit" class="btn btn-info">
-								<i class="fas fa-edit"></i>
-							</button>
-						</form>
-					</td> -->
+					<% if(permissionUtils.getPermissionUser(permissionUser, 'orders.delete')) {%>
 					<td>
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= order.id %>">
 							<i class="fas fa-trash-alt"></i>
@@ -101,6 +97,7 @@
 							</div>
 						</div>
 					</td>
+					<% } %>
 				</tr>
 				<% }) %>
 			</tbody>
