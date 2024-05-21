@@ -4,6 +4,7 @@ const User = model.User;
 const Product = model.Product;
 const Order = model.Order;
 const Type = model.Type;
+const News = model.News;
 
 const moduleName = "Tổng quan";
 
@@ -14,6 +15,7 @@ module.exports = {
 
     const productQuantity = await Product.count();
     const orderQuantity = await Order.count();
+    const newsQuantity = await News.count();
 
     const permissionUser = await permissionUtils.roleUser(req);
 
@@ -22,6 +24,7 @@ module.exports = {
       moduleName,
       productQuantity,
       orderQuantity,
+      newsQuantity,
       permissionUser,
       permissionUtils,
       userName,

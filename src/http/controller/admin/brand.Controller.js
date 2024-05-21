@@ -63,7 +63,6 @@ module.exports = {
       permissionUtils,
       page,
       recordNumber,
-
       userName,
     });
   },

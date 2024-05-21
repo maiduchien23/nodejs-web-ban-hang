@@ -1,0 +1,60 @@
+<div class="card-body">
+  <form action="/admin/news/edit/<%= news.id %>" method="POST">
+    <div class="form-group">
+      <label for="title">Tiêu đề:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        value="<%= news.title %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="content">Nội dung:</label>
+      <textarea
+        class="form-control"
+        id="content"
+        name="content"
+        rows="5"
+        required
+      >
+<%= news.content %></textarea
+      >
+    </div>
+    <div class="form-group">
+      <label for="author">Tác giả:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="author"
+        name="author"
+        value="<%= news.author %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="publishDate">Ngày xuất bản:</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        id="publishDate"
+        name="publishDate"
+        value="<%= news.publishDate.toISOString().slice(0, 16) %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productUrl">Link sản phẩm:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="productUrl"
+        name="productUrl"
+        value="<%= news.productUrl %>"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

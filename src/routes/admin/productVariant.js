@@ -13,6 +13,6 @@ router.patch("/edit/:id", productVariantController.update);
 
 router.delete("/delete/:id", productVariantController.destroy);
 
-router.get("/variants/:productId", productVariantController.getProductVariants);
+router.get("/variant/:productId", productVariantController.getProductVariants);
 
 module.exports = router;

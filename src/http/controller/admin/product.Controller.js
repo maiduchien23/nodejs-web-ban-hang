@@ -356,9 +356,11 @@ module.exports = {
       include: [
         {
           model: Category,
+          attributes: ["name"],
         },
         {
           model: Brand,
+          attributes: ["name"],
         },
       ],
     });
@@ -402,8 +404,8 @@ module.exports = {
           description: data[i].column_2,
           price: data[i].column_3,
           quantityAvailable: data[i].column_4,
-          categoryId: data[i].column_5,
-          brandId: data[i].column_6,
+          nameCategory: data[i].column_5,
+          nameBrand: data[i].column_6,
           createdBy: req.user.id,
           updatedBy: req.user.id,
         });

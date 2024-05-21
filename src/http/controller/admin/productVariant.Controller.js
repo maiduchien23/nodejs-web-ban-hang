@@ -251,20 +251,43 @@ module.exports = {
   getProductVariants: async (req, res) => {
     try {
       const { productId } = req.params;
-      // Lấy danh sách biến thể sản phẩm dựa trên productId
+      console.log(`Fetching variants for product ID: ${productId}`);
+
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        console.log(`Product with ID ${productId} not found`);
+        return res.status(404).send("Product not found");
+      }
+
       const productVariants = await ProductVariant.findAll({
-        where: { productId: productId },
+        where: { productId },
         include: [
-          { model: Product },
-          { model: ProductColor },
-          { model: ProductSize },
+          { model: ProductColor, attributes: ["name"] },
+          { model: ProductSize, attributes: ["name"] },
         ],
       });
-      // Render template chứa danh sách biến thể sản phẩm và trả về dưới dạng HTML
-      res.render("admin/productVariant/index", { productVariants });
+
+      if (!productVariants.length) {
+        console.log(`No variants found for product ID ${productId}`);
+        return res.status(404).send("No variants found for this product");
+      }
+
+      const permissionUser = await permissionUtils.roleUser(req);
+
+      res.render("admin/productVariant/list", {
+        req,
+        productVariants,
+        product,
+        getPaginateUrl,
+        moduleName,
+        moment,
+        title: "Danh sách biến thể sản phẩm",
+        moduleName,
+        permissionUser,
+        permissionUtils,
+      });
     } catch (error) {
       console.error("Error fetching product variants:", error);
-      // Xử lý lỗi nếu có
       res.status(500).send("Đã xảy ra lỗi khi lấy danh sách biến thể sản phẩm");
     }
   },

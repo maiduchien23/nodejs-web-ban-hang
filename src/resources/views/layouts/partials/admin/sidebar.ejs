@@ -128,6 +128,13 @@
 								<p>Danh sách sản phẩm</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="/admin/productVariants"
+								class="nav-link <%= title === "Danh sách biến thể sản phẩm" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách biến thể sản phẩm </p>
+							</a>
+						</li>
 				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.add')) {%>
 						<li class="nav-item">
 							<a href="/admin/products/add"
@@ -178,6 +185,34 @@
 					</ul>
 				</li>
 				<% } %>
+				<li class="nav-item <%= moduleName === "Tin tức" ? "menu-is-opening menu-open" : "" %>">
+					<a href="#"
+						class="nav-link <%= moduleName === "Tin tức" ? "active" : "" %>">
+						<i class="fas fa-newspaper"></i>
+						<p>
+							Quản lý tin tức
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="/admin/news"
+								class="nav-link <%= title === "Danh sách tin tức" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon active"></i>
+								<p>Danh sách</p>
+							</a>
+						</li>
+						
+						<li class="nav-item">
+							<a href="/admin/news/add"
+								class="nav-link <%= title === "Thêm tin tức" ? "active" : "" %>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Thêm mới</p>
+							</a>
+						</li>
+						
+					</ul>
+				</li>
 				<li class="nav-item">
 					<a href="/admin/setting"
 						class="nav-link <%= moduleName === "Cài đặt" ? "active" : "" %>">

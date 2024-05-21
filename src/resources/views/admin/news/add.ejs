@@ -1,0 +1,59 @@
+<div class="card-body">
+  <form action="/admin/news/add" method="POST">
+    <div class="form-group">
+      <label for="title">Tiêu đề:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Nhập tiêu đề"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="content">Nội dung:</label>
+      <textarea
+        class="form-control"
+        id="content"
+        name="content"
+        rows="5"
+        placeholder="Nhập nộ dung"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="author">Tác giả:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="author"
+        name="author"
+        placeholder="Nhập tên tác giả "
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="publish_date">Ngày xuất bản:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="publishDate"
+        name="publishDate"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productUrl">Link sản phẩm:</label>
+      <input
+        type="url"
+        class="form-control"
+        id="productUrl"
+        name="productUrl"
+        placeholder="Gắn link sản phẩm "
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

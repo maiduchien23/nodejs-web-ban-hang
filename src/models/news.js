@@ -2,9 +2,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
-    static associate(models) {
-      // Define associations here
-    }
+    static associate(models) {}
   }
   News.init(
     {
