@@ -14,7 +14,7 @@ const cors = require("cors");
 
 // Khai báo Router
 
-const uploadRouter = require("./routes/uploads/index");
+//const uploadRouter = require("./routes/uploads/index");
 const adminRouter = require("./routes/admin/index");
 const authRouter = require("./routes/auth/index");
 const imageRouter = require("./routes/uploads/image.Router");
@@ -100,12 +100,12 @@ passport.use("facebook", facebookPassport);
 passport.use("google", googlePassport);
 
 //Bind Flmngr to serve "/flmngr" URL on your webserver with storage placed in "./files" (mapped to "/files" URL)
-flmngr.bindFlmngr({
-  app: app,
-  urlFileManager: "/flmngr",
-  urlFiles: "/files/",
-  dirFiles: "./files",
-});
+// flmngr.bindFlmngr({
+//   app: app,
+//   urlFileManager: "/flmngr",
+//   urlFiles: "/files/",
+//   dirFiles: "./files",
+// });
 
 // Routes
 app.use("/auth", authRouter);
@@ -114,9 +114,8 @@ app.use(LoginFirstTimeMiddleware);
 app.use(DeviceMiddleware);
 app.use("/connect", connectRouter);
 app.use("/admin", adminRouter);
-app.use("/upload", uploadRouter);
-
-app.use("/image", imageRouter);
+//app.use("/upload", uploadRouter);
+//app.use("/image", imageRouter);
 
 app.use(methodOverride("_method"));
 // Error handling

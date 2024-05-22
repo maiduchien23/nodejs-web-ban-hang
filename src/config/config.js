@@ -8,7 +8,7 @@ module.exports = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DRIVER,
-    logging: true,
+    logging: false,
     dialectOptions: {
       collate: "utf8mb4_general_ci",
     },
