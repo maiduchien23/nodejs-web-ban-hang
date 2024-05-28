@@ -51,6 +51,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use((req, res, next) => {
+  // Thêm MIME type cho tệp JavaScript
+  if (req.url.endsWith(".js")) {
+    res.set("Content-Type", "application/javascript");
+  }
+  next();
+});
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(
   methodOverride(function (req, res) {

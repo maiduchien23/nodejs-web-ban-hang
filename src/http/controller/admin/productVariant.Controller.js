@@ -249,6 +249,11 @@ module.exports = {
   },
 
   getProductVariants: async (req, res) => {
+    const userName = req.user.name;
+    const errors = req.flash("errors");
+    const title = "Biến thể của sản phẩm";
+    const success = req.flash("success");
+
     try {
       const { productId } = req.params;
       console.log(`Fetching variants for product ID: ${productId}`);
@@ -258,6 +263,7 @@ module.exports = {
         console.log(`Product with ID ${productId} not found`);
         return res.status(404).send("Product not found");
       }
+      console.log(`Product found: ${JSON.stringify(product)}`);
 
       const productVariants = await ProductVariant.findAll({
         where: { productId },
@@ -266,22 +272,30 @@ module.exports = {
           { model: ProductSize, attributes: ["name"] },
         ],
       });
+      console.log(
+        `Product variants fetched: ${JSON.stringify(productVariants)}`
+      );
 
       if (!productVariants.length) {
         console.log(`No variants found for product ID ${productId}`);
         return res.status(404).send("No variants found for this product");
       }
 
+      console.log("Fetched product variants successfully");
+
       const permissionUser = await permissionUtils.roleUser(req);
 
       res.render("admin/productVariant/list", {
+        errors,
+        success,
+        userName,
         req,
         productVariants,
         product,
         getPaginateUrl,
         moduleName,
         moment,
-        title: "Danh sách biến thể sản phẩm",
+        title,
         moduleName,
         permissionUser,
         permissionUtils,

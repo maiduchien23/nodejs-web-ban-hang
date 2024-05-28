@@ -23,6 +23,7 @@ const upload = multer({ storage: storage });
 const ProductController = require("../../http/controller/admin/product.Controller");
 const ProductValidate = require("../../http/middlewares/product.Validate");
 const ProductUpdateValidate = require("../../http/middlewares/product.UpdateValidate");
+const ProductVariantController = require("../../http/controller/admin/productVariant.Controller");
 
 router.get("/", ProductController.index);
 router.post("/", ProductController.index);
@@ -53,5 +54,6 @@ router.post(
   upload.single("fileProduct"),
   ProductController.handleImport
 );
+router.get("/variants/:productId", ProductVariantController.getProductVariants);
 
 module.exports = router;

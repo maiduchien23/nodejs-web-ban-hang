@@ -190,12 +190,16 @@
     ></script>
     <!-- OPTIONAL SCRIPTS -->
     <script src="/plugins/chart.js/Chart.min.js"></script>
+    <script src="/assets/ckeditor/ckeditor.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   </body>
-  <script>
+  <script type="text/javascript">
     $(function () {
       $("input[data-bootstrap-switch]").each(function () {
         $(this).bootstrapSwitch("state", $(this).prop("checked"));
       });
     });
+    CKEDITOR.replace("description");
   </script>
 </html>

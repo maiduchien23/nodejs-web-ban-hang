@@ -7,6 +7,7 @@
     "generate-cert": "mkcert -install && mkcert localhost"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@flmngr/flmngr-server-node-express": "^1.5.3",
     "app-root-path": "^3.1.0",
     "bcrypt": "^5.1.1",
@@ -42,6 +43,7 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
+    "select2": "^4.1.0-rc.0",
     "sequelize": "^6.37.1",
     "sharp": "^0.33.2",
     "uuid": "^9.0.1"

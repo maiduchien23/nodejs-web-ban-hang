@@ -1,102 +1,124 @@
-<div class="card-body">
-  <form
-    action="/admin/products/add"
-    method="POST"
-    enctype="multipart/form-data"
-  >
-    <div class="form-group">
-      <label for="name">Tên sản phẩm:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name"
-        name="name"
-        placeholder="Nhập tên sản phẩm"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="image">Ảnh sản phẩm:</label>
-      <input
-        type="file"
-        class="form-control-file"
-        id="image"
-        name="image"
-        onchange="previewImage(event)"
-        required
-      />
-      <img
-        id="preview"
-        src="#"
-        alt="Preview Image"
-        style="max-width: 200px; display: none"
-      />
-    </div>
-    <div class="form-group">
-      <label for="description">Mô tả:</label>
-      <textarea
-        class="form-control"
-        id="description"
-        name="description"
-        rows="3"
-        placeholder="Nhập mô tả sản phẩm"
-        required
-      ></textarea>
-    </div>
-    <div class="form-group">
-      <label for="price">Giá:</label>
-      <input
-        type="number"
-        class="form-control"
-        id="price"
-        name="price"
-        placeholder="Nhập giá sản phẩm"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="quantityAvailable">Số lượng:</label>
-      <input
-        type="number"
-        class="form-control"
-        id="quantityAvailable"
-        name="quantityAvailable"
-        placeholder="Nhập số lượng"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="category">Danh mục:</label>
-      <select class="form-control" id="category" name="categoryId" required>
-        <option value="0">Chọn danh mục</option>
-        <% categories.forEach(category => { %>
-        <option value="<%= category.id %>"><%= category.name %></option>
-        <% }) %>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="brand">Thương hiệu:</label>
-      <select class="form-control" id="brand" name="brandId" required>
-        <option value="0">Chọn thương hiệu</option>
-        <% brands.forEach(brand => { %>
-        <option value="<%= brand.id %>"><%= brand.name %></option>
-        <% }) %>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
-  </form>
-  <script>
-    function previewImage(event) {
-      const preview = document.getElementById("preview");
-      const file = event.target.files[0];
-      const reader = new FileReader();
 
-      reader.onload = function (event) {
-        preview.src = event.target.result;
-        preview.style.display = "block"; // Hiển thị hình ảnh
-      };
+  <body>
+    <div class="card-body">
+      <form
+        action="/admin/products/add"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="name">Tên sản phẩm:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Nhập tên sản phẩm"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="image">Ảnh sản phẩm:</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="image"
+            name="image"
+            onchange="previewImage(event)"
+            required
+          />
+          <img
+            id="preview"
+            src="#"
+            alt="Preview Image"
+            style="max-width: 200px; display: none"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Mô tả:</label>
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="3"
+            placeholder="Nhập mô tả sản phẩm"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="price">Giá:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">₫</span> <!-- Ký hiệu VNĐ -->
+            </div>
+            <input
+              type="number"
+              class="form-control"
+              id="price"
+              name="price"
+              placeholder="Nhập giá sản phẩm"
+              required
+              oninput="formatCurrency(this)"
+            />
+          </div>
+          <div id="formattedPrice" style="margin-top: 5px;"></div> <!-- Phần hiển thị giá đã định dạng -->
+        </div>
+        <div class="form-group">
+          <label for="quantityAvailable">Số lượng:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantityAvailable"
+            name="quantityAvailable"
+            placeholder="Nhập số lượng"
+            min="0" step="1"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="category">Danh mục:</label>
+          <select class="form-control" id="category" name="categoryId" required>
+            <option value="0">Chọn danh mục</option>
+            <% categories.forEach(category => { %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="brand">Thương hiệu:</label>
+          <select class="form-control" id="brand" name="brandId" required>
+            <option value="0">Chọn thương hiệu</option>
+            <% brands.forEach(brand => { %>
+            <option value="<%= brand.id %>"><%= brand.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+      </form>
+      <script>
+        function previewImage(event) {
+          const preview = document.getElementById("preview");
+          const file = event.target.files[0];
+          const reader = new FileReader();
 
-      reader.readAsDataURL(file);
-    }
-  </script>
-</div>
+          reader.onload = function (event) {
+            preview.src = event.target.result;
+            preview.style.display = "block"; // Hiển thị hình ảnh
+          };
+
+          reader.readAsDataURL(file);
+        }
+
+        function formatCurrency(input) {
+    // Định dạng giá theo định dạng VNĐ
+          let price = input.value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById("formattedPrice").innerText = price + " ₫";
+}
+      </script>
+      <script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
+      <script>   
+        CKEDITOR.replace( 'description' );
+      </script>
+    </div>
+  </body>
+</html>

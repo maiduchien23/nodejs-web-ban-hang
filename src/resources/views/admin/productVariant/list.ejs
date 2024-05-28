@@ -1,26 +1,31 @@
-<div class="card-body">
-  <h1>Product Variants</h1>
-  <% if (productVariants && productVariants.length > 0) { %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Color</th>
-        <th>Size</th>
-        <th>Price</th>
-        <th>Quantity Available</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% productVariants.forEach((variant, index) => { %>
-      <tr>
-        <td><%= index + 1 %></td>
-        <td><%= variant.ProductColor.name %></td>
-        <td><%= variant.ProductSize.name %></td>
-        <td><%= variant.price %></td>
-        <td><%= variant.quantityAvailable %></td>
-      </tr>
-      <% }) %>
-    </tbody>
-  </table>
-</div>
+
+  <body class="card-body">
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tên</th>
+          <th>Màu</th>
+          <th>Size</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% productVariants.forEach((variant, index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= product.name %></td>
+          <td><%= variant.ProductColor.name %></td>
+          <td><%= variant.ProductSize.name %></td>
+          <td>
+            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+            'VND' }).format(variant.price) %>
+          </td>
+          <td><%= variant.quantityAvailable %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -88,6 +88,7 @@
 						</form>
 					</td>
 					<% } %>
+					
 				<% if(permissionUtils.getPermissionUser(permissionUser, 'products.delete')) {%>
 				<td>
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger-<%= product.id %>">
@@ -118,9 +119,11 @@
 				</td>
 				<% } %>
 				<td>
-					<button type="button" class="btn btn-secondary" onclick="redirectToVariantsPage('<%= product.id %>')">
-						<i class="fas fa-cubes"></i> Biến thể
-					</button>
+					<form action="/admin/products/variants/<%= product.id %>" method="get">
+						<button type="submit" class="btn btn-secondary">
+							<i class="fas fa-cubes"></i> 
+						</button>
+					</form>
 				</td>
 			</tr>
 			<% }) %>
@@ -144,9 +147,5 @@
 		<!-- phân trang -->
 		<%- include("../../subviews/paginate", {totalPage, page}) %>
 	</div>
-	<script>
-    	function redirectToVariantsPage(productId) {
-        	window.location.href = `/admin/productVariants/variant/${productId}`;
-    	}
-	</script>
+	
 </div>
