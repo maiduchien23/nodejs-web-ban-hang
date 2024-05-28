@@ -58,3 +58,16 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
+<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
+<script>
+  // Check if CKEditor is loaded
+  if (typeof CKEDITOR !== "undefined") {
+    CKEDITOR.replace("content", {
+      autoParagraph: false,
+      enterMode: CKEDITOR.ENTER_BR,
+      shiftEnterMode: CKEDITOR.ENTER_P,
+    });
+  } else {
+    console.error("CKEditor is not loaded.");
+  }
+</script>
