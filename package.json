@@ -10,7 +10,7 @@
     "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@flmngr/flmngr-server-node-express": "^1.5.3",
     "app-root-path": "^3.1.0",
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "body-parser": "^1.20.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
